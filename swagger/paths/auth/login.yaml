@@ -1,0 +1,49 @@
+tags:
+  - Authentication
+summary: Login to the application
+operationId: loginUser
+description: Login to the application with credentials
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            format: email
+            description: User's email address
+            example: user@example.com
+          password:
+            type: string
+            format: password
+            description: User's password
+            example: password123
+responses:
+  '200':
+    description: Login successful
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Login successful!
+            data:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  '401':
+    description: Unauthorized, invalid credentials
+    content:
+      application/json:
+        schema:
+          $ref: ..\..\components\responses\401.yaml
+security: []

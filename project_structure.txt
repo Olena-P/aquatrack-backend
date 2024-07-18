@@ -1,0 +1,54 @@
++--- docs/
++--- src/
+    +--- constants/
+        +--- index.js
+    +--- controllers/
+        +--- auth.js
+    +--- db/
+        +--- models/
+            +--- session.js
+            +--- user.js
+        +--- initMongoConnection.js
+    +--- middlewares/
+        +--- authenticate.js
+        +--- errorHandlers.js
+        +--- notFoundHandler.js
+        +--- swaggerDocs.js
+        +--- validateBody.js
+    +--- routes/
+        +--- auth.js
+        +--- index.js
+    +--- services/
+        +--- auth.js
+    +--- templates/
+        +--- reset-password-email.html
+    +--- utils/
+        +--- env.js
+        +--- sendMail.js
+    +--- index.js
+    +--- server.js
++--- swagger/
+    +--- components/
+        +--- responses/
+            +--- 200.yaml
+            +--- 201.yaml
+            +--- 204.yaml
+            +--- 400.yaml
+            +--- 401.yaml
+            +--- 404.yaml
+        +--- schemas/
+    +--- paths/
+        +--- auth/
+            +--- confirm-oauth.yaml
+            +--- get-oauth-url.yaml
+            +--- login.yaml
++--- .editorconfig
++--- .env.example
++--- .gitignore
++--- .prettierrc
++--- crud.todo
++--- eslint.config.mjs
++--- google-oauth.json
++--- package-lock.json
++--- package.json
++--- redocly.yaml
