@@ -1,9 +1,8 @@
 import { model, Schema } from 'mongoose';
-// import { ROLES } from '../../constants/index.js';
 
 const usersSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String },
     email: {
       type: String,
       required: true,
@@ -11,13 +10,11 @@ const usersSchema = new Schema(
       match: [/.+@.+\..+/, 'Please fill a valid email address'],
     },
     password: { type: String, required: true },
+    avatar: { type: String },
+    weight: Number,
+    activityLevel: Number,
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    role: {
-      type: String,
-      //   enum: [ROLES.OWNER, ROLES.PARENT],
-      //   default: ROLES.PARENT,
-    },
   },
   { timestamps: true, versionKey: false },
 );
