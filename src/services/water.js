@@ -71,7 +71,7 @@ export const getWaterVolumePerMonth = async (year, month, userId) => {
   const totalSumByDay = Array(32).fill(0);
   water.forEach((obj) => {
     const day = parseInt(obj.date.split(".")[0]);
-    totalSumByDay[day] += obj.value;
+    totalSumByDay[day] += obj.volume;
   });
   return totalSumByDay;
 };
