@@ -52,3 +52,26 @@ export const deleteWaterVolume = async (waterId) => {
   });
   return water;
 };
+
+export const getWaterVolumePerDay = async (year, month, day, userId) => {
+  const query = {
+    userId,
+    date: `${day}.${month}.${year}`,
+  };
+  const water = await WaterVolume.find(query);
+  return water;
+};
+
+export const getWaterVolumePerMonth = async (year, month, userId) => {
+  const query = {
+    userId,
+    date: { $regex: `${month}.${year}` },
+  };
+  const water = await WaterVolume.find(query);
+  const totalSumByDay = Array(32).fill(0);
+  water.forEach((obj) => {
+    const day = parseInt(obj.date.split(".")[0]);
+    totalSumByDay[day] += obj.value;
+  });
+  return totalSumByDay;
+};
