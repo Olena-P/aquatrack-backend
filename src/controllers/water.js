@@ -13,8 +13,7 @@ export const createWaterController = async (req, res) => {
 
   res.status(201).json({
     status: 201,
-    message:
-      'Successfully created!',
+    message: 'Successfully created!',
     data: water,
   });
 };
@@ -36,7 +35,7 @@ export const upsertWaterVolumeController = async (req, res, next) => {
 
   res.status(status).json({
     status,
-    message: 'Successfully upserted water volume!',
+    message: 'Successfully updated water volume!',
     data: result.water,
   });
 };
