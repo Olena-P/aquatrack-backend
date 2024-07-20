@@ -1,20 +1,49 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: aquatrack
+  title: AquaTrack
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: API Documentation for working with aquatrack
+  description: API Documentation for AquaTrack
 tags:
+  - name: Users
+    description: Operations related to user management, including registration, login, and user profile updates.
   - name: Water
     description: Operations about water
-  - name: Authorization
-    description: Operations about user authorization
 servers:
   - url: http://localhost:3000
-  - url: "" #посилання на задеплоєний сайт
+  - url: https://aquatrack-backend.onrender.com/api-docs
 paths:
+  /users/login:
+    post:
+      $ref: '../swagger/paths/users/login.yaml'
+  /users/register:
+    post:
+      $ref: '../swagger/paths/users/register.yaml'
+  /users/logout:
+    post:
+      $ref: '../swagger/paths/users/logout.yaml'
+  /users/me:
+    get:
+      $ref: '../swagger/paths/users/get-me.yaml'
+    put:
+      $ref: '../swagger/paths/users/put-me.yaml'
+  /users/refresh-token:
+    post:
+      $ref: '../swagger/paths/users/refresh-token.yaml'
+  /users/total:
+    get:
+      $ref: '../swagger/paths/users/total.yaml'
+  /users/request-reset-password:
+    post:
+      $ref: '../swagger/paths/users/request-reset-password.yaml'
+  /users/reset-password:
+    post:
+      $ref: '../swagger/paths/users/reset-password.yaml'
+  /users/google-auth:
+    post:
+      $ref: '../swagger/paths/users/get-oauth-url.yaml'
   /water:
     post:
       $ref: '../swagger/paths/water/post.yaml'
@@ -23,9 +52,6 @@ paths:
       $ref: '../swagger/paths/water/{id}/put.yaml'
     delete:
       $ref: '../swagger/paths/water/{id}/delete.yaml'
-  /auth/login:
-    post:
-      $ref: '../swagger/paths/auth/login.yaml'
 components:
   securitySchemes:
     bearerAuth:
