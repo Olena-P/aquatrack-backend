@@ -1,0 +1,21 @@
+tags:
+  - Users
+summary: User logout
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          sessionId:
+            type: string
+          refreshToken:
+            type: string
+responses:
+  '204':
+    description: Successful logout
+  '401':
+    description: Unauthorized
+security:
+  - bearerAuth: []
