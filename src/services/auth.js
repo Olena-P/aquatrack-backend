@@ -197,3 +197,13 @@ export const resetPassword = async (payload) => {
     { password: encryptedPassword },
   );
 };
+
+export const getUsersCount = async () => {
+  const count = await UsersCollection.countDocuments();
+  return count;
+};
+
+
+
+
+

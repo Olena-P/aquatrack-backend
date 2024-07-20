@@ -33,4 +33,4 @@ properties:
   updatedAt:
     description: "Contact update time"
     type: string
-    example: "2024-07-20T16:02:08.782Z"
+    example: "2024-07-20T16:02:08.782Z

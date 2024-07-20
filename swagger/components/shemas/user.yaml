@@ -38,4 +38,3 @@ properties:
     description: 'Document update time'
     type: string
     example: '2024-07-20T14:16:59.757Z'
-  
