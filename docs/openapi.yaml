@@ -44,14 +44,14 @@ paths:
   /users/google-auth:
     post:
       $ref: '../swagger/paths/users/get-oauth-url.yaml'
-  /water:
-    post:
-      $ref: '../swagger/paths/water/post.yaml'
-  /water/{id}:
-    put:
-      $ref: '../swagger/paths/water/{id}/put.yaml'
-    delete:
-      $ref: '../swagger/paths/water/{id}/delete.yaml'
+  # /water:
+  #   post:
+  #     $ref: '../swagger/paths/water/post.yaml'
+  # /water/{id}:
+    # put:
+    #   $ref: '../swagger/paths/water/{id}/put.yaml'
+    # delete:
+    #   $ref: '../swagger/paths/water/{id}/delete.yaml'
 components:
   securitySchemes:
     bearerAuth:
