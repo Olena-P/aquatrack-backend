@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: aquatrack
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: API Documentation for working with aquatrack
+tags:
+  - name: Water
+    description: Operations about water
+  - name: Authorization
+    description: Operations about user authorization
+servers:
+  - url: http://localhost:3000
+  - url: "" #посилання на задеплоєний сайт
+paths:
+  /water:
+    post:
+      $ref: '../swagger/paths/water/post.yaml'
+  /water/{id}:
+    put:
+      $ref: '../swagger/paths/water/{id}/put.yaml'
+    delete:
+      $ref: '../swagger/paths/water/{id}/delete.yaml'
+  /auth/login:
+    post:
+      $ref: '../swagger/paths/auth/login.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

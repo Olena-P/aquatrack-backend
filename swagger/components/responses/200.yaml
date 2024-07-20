@@ -17,7 +17,7 @@ content:
         data:
           type: object
           properties:
-            contacts:
+            water:
               type: array
               items:
                 $ref: ..\schemas\
