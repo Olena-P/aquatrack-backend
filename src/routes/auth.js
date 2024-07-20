@@ -16,6 +16,7 @@ import {
   requestResetEmailController,
   resetPasswordController,
   loginWithGoogleController,
+  getUsersCountController,
 } from '../controllers/auth.js';
 import { getGoogleOAuthUrlController } from '../controllers/auth.js';
 
@@ -56,5 +57,7 @@ authRouter.post(
   validateBody(loginWithGoogleOAuthSchema),
   ctrlWrapper(loginWithGoogleController),
 );
+
+authRouter.get('/count', ctrlWrapper(getUsersCountController));
 
 export default authRouter;
