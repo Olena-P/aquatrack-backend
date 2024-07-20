@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { localDate, localTime } from '../../services/water.js';
 
 const waterSchema = new Schema(
   {
@@ -11,11 +12,19 @@ const waterSchema = new Schema(
       ref: 'users',
       required: true,
     },
+    date: {
+      type: String,
+      default: () => localDate(),
+    },
+    time: {
+      type: String,
+      default: () => localTime(),
+    },
   },
   {
     timestamps: true,
     versionKey: false,
-  },
+  }
 );
 
 export const WaterVolume = model('water', waterSchema);

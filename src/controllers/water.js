@@ -7,12 +7,12 @@ import {
 
   export const createWaterController = async (req, res) => {
     const userId = req.user._id;
-    const water = await createWaterVolume(req.body, userId);
+    const water = await createWaterVolume({...req.body }, userId);
 
     res.status(201).json({
       status: 201,
       message:
-        'Data on the volume of water consumed has been successfully created!',
+        'Successfully created!',
       data: water,
     });
   };
