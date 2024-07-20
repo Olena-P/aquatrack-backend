@@ -13,8 +13,7 @@ export const createWaterController = async (req, res) => {
 
   res.status(201).json({
     status: 201,
-    message:
-      'Successfully created!',
+    message: 'Successfully created!',
     data: water,
   });
 };
@@ -63,7 +62,7 @@ export const getWaterPerDayController = async (req, res, next) => {
 };
 
 export const getWaterPerMonthController = async (req, res, next) => {
-  const { year, month, } = req.query;
+  const { year, month } = req.query;
   const userId = req.user._id;
   const waterMonth = await getWaterVolumePerMonth(year, month, userId);
   res.status(200).json({ data: waterMonth });
