@@ -1,0 +1,18 @@
+type: object
+required:
+  - _id
+  - volume
+  - userId
+  - data
+  - time
+properties:
+  _id:
+    description: "Water's id"
+    type: string
+    example: 669b4b5ee4582ae60fc053a8
+volume:
+    description: "Water's volume"
+    type: number
+    example: 60
+userId:
+    description: "Id of the user who manages the water volume"

@@ -1,8 +1,26 @@
 import { WaterVolume } from '../db/models/water.js';
 
-export const createWaterVolume = async (payload) => {
-  const water = await WaterVolume.create(payload);
-  return water;
+export const localDate = () => {
+  const milliseconds = Date.now();
+  const date = new Date(milliseconds);
+
+  return date.toLocaleDateString();
+};
+
+export const localTime = () => {
+  const milliseconds = Date.now();
+  const time = new Date(milliseconds);
+
+  const timeString = time.toLocaleTimeString();
+  const parts = timeString.split(":");
+  parts.pop();
+
+  return parts.join(":");
+};
+
+export const createWaterVolume = async (payload, userId) => {
+  const water = { ...payload, userId };
+  return await WaterVolume.create(water);
 };
 
 export const updateWaterVolume = async (
