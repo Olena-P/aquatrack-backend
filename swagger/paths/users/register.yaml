@@ -1,0 +1,34 @@
+tags:
+  - Users
+summary: User registration
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+          password:
+            type: string
+          name:
+            type: string
+responses:
+  '201':
+    description: User created
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            email:
+              type: string
+            name:
+              type: string
+  '409':
+    description: Email in use
+security:
+  - bearerAuth: []

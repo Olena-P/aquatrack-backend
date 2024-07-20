@@ -1,0 +1,16 @@
+tags:
+  - Users
+summary: Get total number of users
+operationId: getTotalUsers
+responses:
+  '200':
+    description: Total users
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            totalUsers:
+              type: number
+security:
+  - bearerAuth: []

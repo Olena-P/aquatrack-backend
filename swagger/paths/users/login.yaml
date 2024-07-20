@@ -1,5 +1,5 @@
 tags:
-  - Authentication
+  - Users
 summary: Login to the application
 operationId: loginUser
 description: Login to the application with credentials
