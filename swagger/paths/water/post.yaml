@@ -1,0 +1,53 @@
+tags:
+  - Water
+summary: Creates water volume data
+operationId: createWater
+description: "Create water volum data with payload"
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - volume
+        properties:
+          volume:
+            description: "Water's volume"
+            type: number
+            example: 80
+          date:
+            description: "Water volume update date"
+            type: string
+            example: 20.07.2024
+          time:
+            description: "Water volume update time"
+            type: string
+            example: 14:5
+responses:
+  '201':
+    description: Creates water volume
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully created!
+            data:
+              type: object
+              $ref: '../../components/shemas/water.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+
+
+

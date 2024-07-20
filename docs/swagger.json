@@ -549,6 +549,208 @@
         },
         "security": []
       }
+    },
+    "/water": {
+      "post": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Creates water volume data",
+        "operationId": "createWater",
+        "description": "Create water volum data with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "volume"
+                ],
+                "properties": {
+                  "volume": {
+                    "description": "Water's volume",
+                    "type": "number",
+                    "example": 80
+                  },
+                  "date": {
+                    "description": "Water volume update date",
+                    "type": "string",
+                    "example": "20.07.2024"
+                  },
+                  "time": {
+                    "description": "Water volume update time",
+                    "type": "string",
+                    "example": "14:5"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creates water volume",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/water/{id}": {
+      "put": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Update water volume by id",
+        "operationId": "putWater",
+        "description": "Update water volume by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "669ba5f44b0321e6c93ae9f3"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "volume": {
+                    "description": "Water volume",
+                    "type": "number",
+                    "example": 60
+                  },
+                  "date": {
+                    "description": "Water volume update date",
+                    "type": "string",
+                    "example": "20.07.2024"
+                  },
+                  "time": {
+                    "description": "Water volume update time",
+                    "type": "string",
+                    "example": "14:56"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated water volume",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated water volume!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Delete water volume by id",
+        "operationId": "deleteWater",
+        "description": "Delete water volume by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "669ba5f44b0321e6c93ae9f3"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted water volume by id"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -590,6 +792,106 @@
                       "example": "Access token expired"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "_id",
+          "volume",
+          "userId",
+          "data",
+          "time"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Water's id",
+            "type": "string",
+            "example": "669b4b5ee4582ae60fc053a8"
+          },
+          "volume": {
+            "description": "Water's volume",
+            "type": "number",
+            "example": 60
+          },
+          "userId": {
+            "description": "Id of the user who manages the water volume",
+            "type": "string",
+            "example": "669b4b40e4582ae60fc0539f"
+          },
+          "date": {
+            "description": "Date of creation of data on the volume of water consumed",
+            "type": "string",
+            "example": "20.07.2024"
+          },
+          "time": {
+            "description": "Time of creation of data on the volume of water consumed",
+            "type": "string",
+            "example": "09:50"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "NotFoundError"
                 }
               }
             }

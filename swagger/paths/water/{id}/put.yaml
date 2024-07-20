@@ -1,0 +1,57 @@
+tags:
+  - Water
+summary: Update water volume by id
+operationId: putWater
+description: 'Update water volume by id'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '669ba5f44b0321e6c93ae9f3'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          volume:
+            description: "Water volume"
+            type: number
+            example: 60
+          date:
+            description: "Water volume update date"
+            type: string
+            example: 20.07.2024
+          time:
+            description: "Water volume update time"
+            type: string
+            example: 14:56
+responses:
+  '200':
+    description: 'Successfully updated water volume'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully updated water volume!'
+            data:
+              type: object
+              $ref: '../../../components/shemas/water.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
