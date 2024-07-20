@@ -26,3 +26,11 @@ properties:
     description: "Time of creation of data on the volume of water consumed"
     type: string
     example: 09:50
+  createdAt:
+    description: "Contact creation time"
+    type: string
+    example: "2024-07-20T16:02:08.782Z"
+  updatedAt:
+    description: "Contact update time"
+    type: string
+    example: "2024-07-20T16:02:08.782Z"

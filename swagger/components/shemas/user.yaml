@@ -20,6 +20,16 @@ properties:
     description: "User's password"
     type: string
     example: '121232'
+  avatar:
+    description: "User's photo"
+    type: string
+  weight:
+    description: "User's weight"
+    type: number
+    example: 60
+  activityLevel:
+    description: "User's activityLevel"
+    type: number
   createdAt:
     description: 'Document creation time'
     type: string
@@ -28,3 +38,4 @@ properties:
     description: 'Document update time'
     type: string
     example: '2024-07-20T14:16:59.757Z'
+  
