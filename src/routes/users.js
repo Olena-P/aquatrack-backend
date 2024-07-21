@@ -6,7 +6,7 @@ import {
   requestResetEmailSchema,
   resetPasswordSchema,
   loginWithGoogleOAuthSchema,
-} from '../validation/auth.js';
+} from '../validation/users.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
   registerUserController,
