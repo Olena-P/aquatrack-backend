@@ -6,6 +6,7 @@ import {
   requestResetToken,
   resetPassword,
   loginOrSignupWithGoogle,
+  getUsersCount,
 } from '../services/auth.js';
 import { ONE_DAY } from '../constants/index.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
@@ -124,3 +125,13 @@ export const loginWithGoogleController = async (req, res) => {
     },
   });
 };
+
+export const getUsersCountController = async (req, res, next) => {
+  const count = await getUsersCount();
+  res.status(200).json({ count });
+};
+
+
+
+
+
