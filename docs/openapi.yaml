@@ -32,7 +32,7 @@ paths:
   /users/refresh-token:
     post:
       $ref: '../swagger/paths/users/refresh-token.yaml'
-  /users/total:
+  /users/count:
     get:
       $ref: '../swagger/paths/users/total.yaml'
   /users/request-reset-password:

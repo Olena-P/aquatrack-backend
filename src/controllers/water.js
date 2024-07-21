@@ -22,7 +22,7 @@ export const patchWaterVolumeController = async (req, res, next) => {
   const userId = req.user._id;
   const { waterId } = req.params;
 
-  const result = await updateWaterVolume(waterId, {...req.body}, userId);
+  const result = await updateWaterVolume(waterId, { ...req.body }, userId);
 
   if (!result) {
     next(createHttpError(404, 'Water volume not found'));
@@ -55,8 +55,8 @@ export const deleteWaterController = async (req, res, next) => {
 export const getWaterPerDayController = async (req, res, next) => {
   const { year, month, day } = req.query;
   const userId = req.user._id;
-  const waterDay = await getWaterVolumePerDay(year, month, day, userId);
-  res.status(200).json({ data: waterDay });
+  const data = await getWaterVolumePerDay(year, month, day, userId);
+  res.status(200).json(data);
 };
 
 export const getWaterPerMonthController = async (req, res, next) => {

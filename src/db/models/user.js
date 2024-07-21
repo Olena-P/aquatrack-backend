@@ -13,6 +13,10 @@ const usersSchema = new Schema(
     avatar: { type: String },
     weight: Number,
     activityLevel: Number,
+    dailyRequirement: {
+      type: Number,
+      default: 2000,
+    },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
@@ -26,3 +30,6 @@ usersSchema.methods.toJSON = function () {
 };
 
 export const UsersCollection = model('users', usersSchema);
+
+
+

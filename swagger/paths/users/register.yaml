@@ -20,10 +20,15 @@ responses:
         schema:
           type: object
           properties:
-            id:
-              type: string
-            email:
-              type: string
+            # id:
+            #   type: string
+            # email:
+            #   type: string
+            data:
+              type: object
+              properties:
+                user:
+                  $ref: '../../components/shemas/user.yaml'
   '409':
     description: Email in use
 security:

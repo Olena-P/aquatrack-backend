@@ -1,3 +1,4 @@
+import { UsersCollection } from '../db/models/user.js';
 import { WaterVolume } from '../db/models/water.js';
 
 export const localDate = () => {
@@ -56,10 +57,15 @@ export const deleteWaterVolume = async (waterId) => {
 export const getWaterVolumePerDay = async (year, month, day, userId) => {
   const query = {
     userId,
-    date: `${day}.${month}.${year}`,
+    date: { $regex: `${day}.${month}.${year}` },
   };
-  const water = await WaterVolume.find(query);
-  return water;
+  const data = await WaterVolume.find(query);
+  const user = await UsersCollection.findById(userId);
+  const dailyRequirement = user.dailyRequirement;
+  let totalDay = 0;
+  data.forEach((i) => (totalDay += i.volume));
+  const percentDay = (totalDay / dailyRequirement) * 100;
+  return { data, percentDay };
 };
 
 export const getWaterVolumePerMonth = async (year, month, userId) => {
@@ -68,10 +74,38 @@ export const getWaterVolumePerMonth = async (year, month, userId) => {
     date: { $regex: `${month}.${year}` },
   };
   const water = await WaterVolume.find(query);
-  const totalSumByDay = Array(32).fill(0);
-  water.forEach((obj) => {
-    const day = parseInt(obj.date.split(".")[0]);
-    totalSumByDay[day] += obj.volume;
+  const user = await UsersCollection.findById(userId);
+  const dailyRequirement = user.dailyRequirement;
+  const result = water.reduce((acc, item) => {
+    const date = item.date;
+
+    if (!acc[date]) {
+      acc[date] = {
+        date: date,
+        volume: 0,
+        dailyRequirement: dailyRequirement,
+        percentage: 0,
+        entriesQuantity: 0
+      };
+    }
+
+    acc[date].volume += item.volume;
+    acc[date].entriesQuantity += 1;
+    acc[date].percentage = (acc[date].volume / acc[date].dailyRequirement) * 100;
+
+    return acc;
+  }, {});
+
+  const sortedResult = Object.values(result).sort((a, b) => {
+    const [dayA, monthA, yearA] = a.date.split('.').map(Number);
+    const [dayB, monthB, yearB] = b.date.split('.').map(Number);
+
+    const dateA = new Date(yearA, monthA - 1, dayA);
+    const dateB = new Date(yearB, monthB - 1, dayB);
+
+    return dateA - dateB;
   });
-  return totalSumByDay;
+
+  return sortedResult;
 };
+

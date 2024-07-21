@@ -62,6 +62,7 @@
         },
         "responses": {
           "200": {
+            "401": null,
             "description": "Login successful",
             "content": {
               "application/json": {
@@ -88,17 +89,8 @@
                   }
                 }
               }
-            }
-          },
-          "401": {
-            "description": "Unauthorized, invalid credentials",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            },
+            "$ref": "#/components/responses/401"
           }
         },
         "security": []
@@ -136,11 +128,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/user"
+                        }
+                      }
                     }
                   }
                 }
@@ -187,7 +181,7 @@
             "description": "Successful logout"
           },
           "401": {
-            "description": "Unauthorized"
+            "$ref": "#/components/responses/401"
           }
         },
         "security": [
@@ -331,7 +325,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "description": "User not found"
@@ -383,7 +377,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "$ref": "#/components/responses/401"
           }
         },
         "security": [
@@ -393,7 +387,7 @@
         ]
       }
     },
-    "/users/total": {
+    "/users/count": {
       "get": {
         "tags": [
           "Users"
@@ -489,7 +483,7 @@
             "description": "Password reset"
           },
           "401": {
-            "description": "Invalid or expired token"
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "description": "User not found"
@@ -865,88 +859,6 @@
         "scheme": "bearer"
       }
     },
-    "schemas": {
-      "401": {
-        "description": "Unauthorized error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 401
-                },
-                "message": {
-                  "type": "string",
-                  "example": "UnauthorizedError"
-                },
-                "data": {
-                  "type": "object",
-                  "required": [
-                    "message"
-                  ],
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Access token expired"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "water": {
-        "type": "object",
-        "required": [
-          "volume"
-        ],
-        "properties": {
-          "_id": {
-            "description": "Water's id",
-            "type": "string",
-            "example": "669b4b5ee4582ae60fc053a8"
-          },
-          "volume": {
-            "description": "Water's volume",
-            "type": "string",
-            "example": 60
-          },
-          "userId": {
-            "description": "Id of the user who manages the water volume",
-            "type": "string",
-            "example": "669b4b40e4582ae60fc0539f"
-          },
-          "date": {
-            "description": "Date of creation of data on the volume of water consumed",
-            "type": "string",
-            "example": "20.07.2024"
-          },
-          "time": {
-            "description": "Time of creation of data on the volume of water consumed",
-            "type": "string",
-            "example": "09:50"
-          },
-          "createdAt": {
-            "description": "Document creation time",
-            "type": "string",
-            "example": "2024-07-21T05:21:01.284Z"
-          },
-          "updatedAt": {
-            "description": "Document update time",
-            "type": "string",
-            "example": "2024-07-21T05:21:01.284Z"
-          }
-        }
-      }
-    },
     "responses": {
       "401": {
         "description": "Unauthorized error",
@@ -1006,6 +918,90 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's id",
+            "type": "string",
+            "example": "669ba5cc4b0321e6c93ae9e0"
+          },
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "Milana Ostapchuk"
+          },
+          "email": {
+            "description": "User's email",
+            "type": "string",
+            "example": "ost@mail.com"
+          },
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "example": "121232"
+          },
+          "createdAt": {
+            "description": "Document creation time",
+            "type": "string",
+            "example": "2024-07-20T14:16:59.757Z"
+          },
+          "updatedAt": {
+            "description": "Document update time",
+            "type": "string",
+            "example": "2024-07-20T14:16:59.757Z"
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "volume"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Water's id",
+            "type": "string",
+            "example": "669b4b5ee4582ae60fc053a8"
+          },
+          "volume": {
+            "description": "Water's volume",
+            "type": "string",
+            "example": 60
+          },
+          "userId": {
+            "description": "Id of the user who manages the water volume",
+            "type": "string",
+            "example": "669b4b40e4582ae60fc0539f"
+          },
+          "date": {
+            "description": "Date of creation of data on the volume of water consumed",
+            "type": "string",
+            "example": "20.07.2024"
+          },
+          "time": {
+            "description": "Time of creation of data on the volume of water consumed",
+            "type": "string",
+            "example": "09:50"
+          },
+          "createdAt": {
+            "description": "Document creation time",
+            "type": "string",
+            "example": "2024-07-21T05:21:01.284Z"
+          },
+          "updatedAt": {
+            "description": "Document update time",
+            "type": "string",
+            "example": "2024-07-21T05:21:01.284Z"
           }
         }
       }

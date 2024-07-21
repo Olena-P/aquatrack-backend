@@ -24,7 +24,9 @@ responses:
               type: string
             refreshToken:
               type: string
+  # '401':
+  #   description: Unauthorized
   '401':
-    description: Unauthorized
+    $ref: '../../components/responses/401.yaml'
 security:
   - bearerAuth: []

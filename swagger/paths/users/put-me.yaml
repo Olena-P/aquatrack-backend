@@ -48,7 +48,9 @@ responses:
               type: number
             avatar:
               type: string
+  # '401':
+  #   description: Unauthorized
   '401':
-    description: Unauthorized
+    $ref: '../../components/responses/401.yaml'
   '404':
     description: User not found
