@@ -1,0 +1,36 @@
+tags:
+  - Water
+summary: Get data on the consumed water for the month
+operationId: getWaterPerMonth
+description: 'Get data on the consumed water for the month'
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: year
+    schema:
+      type: integer
+    example: 2024
+  - in: query
+    name: month
+    schema:
+      type: string
+      pattern: '^\d{2}$'
+      example: '07'
+    description: ''
+responses:
+  '200':
+    description: Successfully found data!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              items:
+                type: number
+  '401':
+    $ref: '../../../components/responses/401.yaml'
