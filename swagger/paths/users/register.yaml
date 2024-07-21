@@ -12,8 +12,6 @@ requestBody:
             type: string
           password:
             type: string
-          name:
-            type: string
 responses:
   '201':
     description: User created
@@ -25,8 +23,6 @@ responses:
             id:
               type: string
             email:
-              type: string
-            name:
               type: string
   '409':
     description: Email in use
