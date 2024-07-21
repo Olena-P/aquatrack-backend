@@ -6,6 +6,7 @@ import {
   requestResetEmailSchema,
   resetPasswordSchema,
   loginWithGoogleOAuthSchema,
+  updateUserProfileSchema,
 } from '../validation/users.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import {
@@ -16,51 +17,61 @@ import {
   requestResetEmailController,
   resetPasswordController,
   loginWithGoogleController,
-  getUsersCountController,
-} from '../controllers/auth.js';
-import { getGoogleOAuthUrlController } from '../controllers/auth.js';
+  getUserProfileController,
+  updateUserProfileController,
+  getUsersTotalController,
+} from '../controllers/users.js';
+import { getGoogleOAuthUrlController } from '../controllers/users.js';
 
-const authRouter = Router();
+const usersRouter = Router();
 
-authRouter.post(
+usersRouter.post(
   '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
 
-authRouter.post(
+usersRouter.post(
   '/login',
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
 
-authRouter.post('/logout', ctrlWrapper(logoutUserController));
+usersRouter.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
 
-authRouter.post(
-  '/refresh-token',
-  ctrlWrapper(refreshTokenUserSessionController),
-);
-
-authRouter.post(
-  '/send-reset-email',
-  validateBody(requestResetEmailSchema),
-  ctrlWrapper(requestResetEmailController),
-);
-
-authRouter.post(
-  '/reset-pwd',
-  validateBody(resetPasswordSchema),
-  ctrlWrapper(resetPasswordController),
-);
-
-authRouter.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
-
-authRouter.post(
+usersRouter.post(
   '/confirm-oauth',
   validateBody(loginWithGoogleOAuthSchema),
   ctrlWrapper(loginWithGoogleController),
 );
 
-authRouter.get('/count', ctrlWrapper(getUsersCountController));
+usersRouter.post('/logout', ctrlWrapper(logoutUserController));
 
-export default authRouter;
+usersRouter.get('/user-profile', ctrlWrapper(getUserProfileController));
+
+usersRouter.patch(
+  '/user-profile',
+  validateBody(updateUserProfileSchema),
+  ctrlWrapper(updateUserProfileController),
+);
+
+usersRouter.post(
+  '/refresh-token',
+  ctrlWrapper(refreshTokenUserSessionController),
+);
+
+usersRouter.post(
+  '/request-reset-pwd',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
+
+usersRouter.post(
+  '/reset-pwd',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
+);
+
+usersRouter.get('/total-users', ctrlWrapper(getUsersTotalController));
+
+export default usersRouter;

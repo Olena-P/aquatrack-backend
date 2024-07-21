@@ -36,17 +36,35 @@ responses:
                       type: string
                       description: User's full name
                       example: John Doe
+                    avatar:
+                      type: string
+                      format: uri
+                      description: URL of the user's avatar photo
+                      example: https://www.example.com/avatar.jpg
+                    weight:
+                      type: number
+                      format: float
+                      description: User's weight in kilograms
+                      example: 70.5
+                    activityLevel:
+                      type: integer
+                      description: User's activity level on a scale of 1 to 5
+                      example: 3
+                    gender:
+                      type: string
+                      description: User's gender
+                      example: female
   '401':
     description: Unauthorized, user not logged in
     content:
       application/json:
         schema:
-          $ref: ../../components/responses/401.yaml
+          $ref: '../../components/responses/401.yaml'
   '500':
     description: Internal server error
     content:
       application/json:
         schema:
-          $ref: ../../components/responses/500.yaml
+          $ref: '../../components/responses/500.yaml'
 security:
   - bearerAuth: []

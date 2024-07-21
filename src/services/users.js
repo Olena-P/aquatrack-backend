@@ -198,12 +198,27 @@ export const resetPassword = async (payload) => {
   );
 };
 
-export const getUsersCount = async () => {
+export const getUserProfile = async (userId) => {
+  const user = await UsersCollection.findById(userId).select('-password -__v');
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+  return user.toJSON();
+};
+
+export const updateUserProfile = async (userId, updateData) => {
+  const user = await UsersCollection.findByIdAndUpdate(
+    userId,
+    { $set: updateData },
+    { new: true, runValidators: true },
+  ).select('-password -__v');
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+  return user.toJSON();
+};
+
+export const getTotalUsers = async () => {
   const count = await UsersCollection.countDocuments();
   return count;
 };
-
-
-
-
-

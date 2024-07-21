@@ -13,6 +13,7 @@ const usersSchema = new Schema(
     avatar: { type: String },
     weight: Number,
     activityLevel: Number,
+    gender: { type: String, default: 'female' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
