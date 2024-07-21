@@ -20,7 +20,7 @@ requestBody:
         properties:
           volume:
             description: "Water volume"
-            type: number
+            type: string
             example: 60
 responses:
   '200':
