@@ -576,16 +576,6 @@
                     "description": "Water's volume",
                     "type": "number",
                     "example": 80
-                  },
-                  "date": {
-                    "description": "Water volume update date",
-                    "type": "string",
-                    "example": "20.07.2024"
-                  },
-                  "time": {
-                    "description": "Water volume update time",
-                    "type": "string",
-                    "example": "14:5"
                   }
                 }
               }
@@ -793,16 +783,6 @@
                     "description": "Water volume",
                     "type": "number",
                     "example": 60
-                  },
-                  "date": {
-                    "description": "Water volume update date",
-                    "type": "string",
-                    "example": "20.07.2024"
-                  },
-                  "time": {
-                    "description": "Water volume update time",
-                    "type": "string",
-                    "example": "14:56"
                   }
                 }
               }
@@ -965,14 +945,14 @@
             "example": "09:50"
           },
           "createdAt": {
-            "description": "Document creation time (generated automatically)",
+            "description": "Document creation time",
             "type": "string",
-            "example": "2024-06-10T19:50:56.197+00:00"
+            "example": "2024-07-21T05:21:01.284Z"
           },
           "updatedAt": {
-            "description": "Document update time (generated automatically)",
+            "description": "Document update time",
             "type": "string",
-            "example": "2024-06-10T19:50:56.197+00:00"
+            "example": "2024-07-21T05:21:01.284Z"
           }
         }
       }

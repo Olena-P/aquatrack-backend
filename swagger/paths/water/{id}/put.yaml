@@ -22,14 +22,6 @@ requestBody:
             description: "Water volume"
             type: number
             example: 60
-          date:
-            description: "Water volume update date"
-            type: string
-            example: 20.07.2024
-          time:
-            description: "Water volume update time"
-            type: string
-            example: 14:56
 responses:
   '200':
     description: 'Successfully updated water volume'
