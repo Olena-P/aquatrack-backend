@@ -4,7 +4,7 @@ import { localDate, localTime } from '../../services/water.js';
 const waterSchema = new Schema(
   {
     volume: {
-      type: Number,
+      type: String,
       required: true,
     },
     userId: {
