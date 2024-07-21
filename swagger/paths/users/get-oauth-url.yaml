@@ -1,10 +1,10 @@
 tags:
   - Users
 summary: Get Google OAuth URL
-description: Retrieve the URL for Google OAuth authorization
+description: Retrieve the URL for Google OAuth login
 operationId: getGoogleOAuthUrl
 responses:
-   200:
+  '200':
     description: Successfully retrieved Google OAuth URL
     content:
       application/json:
@@ -16,11 +16,18 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully retrieved Google OAuth URL!
+              example: Successfully retrieved Google OAuth URL
             data:
               type: object
               properties:
-                url:
+                oauthUrl:
                   type: string
+                  description: The URL to initiate Google OAuth login
                   example: https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fconfirm-google-auth
-security: []  # No security required for this endpoint
+  '400':
+    description: Bad request, failed to generate OAuth URL
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/400.yaml
+security: []

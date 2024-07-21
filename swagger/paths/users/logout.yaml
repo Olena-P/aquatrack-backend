@@ -1,21 +1,27 @@
 tags:
   - Users
-summary: User logout
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          sessionId:
-            type: string
-          refreshToken:
-            type: string
+summary: Logout from the application
+operationId: logoutUser
+description: Logout from the application and invalidate the user's token
 responses:
-  '204':
-    description: Successful logout
+  '200':
+    description: Logout successful
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Logout successful!
   '401':
-    description: Unauthorized
+    description: Unauthorized, invalid token
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/401.yaml
 security:
   - bearerAuth: []
