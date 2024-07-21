@@ -122,9 +122,6 @@
                   },
                   "password": {
                     "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
                   }
                 }
               }
@@ -143,9 +140,6 @@
                       "type": "string"
                     },
                     "email": {
-                      "type": "string"
-                    },
-                    "name": {
                       "type": "string"
                     }
                   }
@@ -574,7 +568,7 @@
                 "properties": {
                   "volume": {
                     "description": "Water's volume",
-                    "type": "number",
+                    "type": "string",
                     "example": 80
                   }
                 }
@@ -781,7 +775,7 @@
                 "properties": {
                   "volume": {
                     "description": "Water volume",
-                    "type": "number",
+                    "type": "string",
                     "example": 60
                   }
                 }
@@ -922,7 +916,7 @@
           },
           "volume": {
             "description": "Water's volume",
-            "type": "number",
+            "type": "string",
             "example": 60
           },
           "userId": {
