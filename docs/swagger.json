@@ -28,6 +28,95 @@
     }
   ],
   "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register a new user",
+        "operationId": "registerUser",
+        "description": "Register a new user with the provided information",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User's email address",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "User's password",
+                    "example": "password123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User registered successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "example": "60d0fe4f5311236168a109ca"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "user@example.com"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
     "/users/login": {
       "post": {
         "tags": [
@@ -104,46 +193,17 @@
         "security": []
       }
     },
-    "/users/register": {
+    "/users/google-auth": {
       "post": {
         "tags": [
           "Users"
         ],
-        "summary": "Register a new user",
-        "operationId": "registerUser",
-        "description": "Register a new user with the provided information",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "User's full name",
-                    "example": "John Doe"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "User's email address",
-                    "example": "user@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "format": "password",
-                    "description": "User's password",
-                    "example": "password123"
-                  }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Get Google OAuth URL",
+        "description": "Retrieve the URL for Google OAuth login",
+        "operationId": "getGoogleOAuthUrl",
         "responses": {
-          "201": {
-            "description": "User registered successfully",
+          "200": {
+            "description": "Successfully retrieved Google OAuth URL",
             "content": {
               "application/json": {
                 "schema": {
@@ -151,31 +211,19 @@
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 201
+                      "example": 200
                     },
                     "message": {
                       "type": "string",
-                      "example": "User registered successfully!"
+                      "example": "Successfully retrieved Google OAuth URL"
                     },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "60d0fe4f5311236168a109ca"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "John Doe"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "user@example.com"
-                            }
-                          }
+                        "oauthUrl": {
+                          "type": "string",
+                          "description": "The URL to initiate Google OAuth login",
+                          "example": "https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fconfirm-google-auth"
                         }
                       }
                     }
@@ -185,7 +233,7 @@
             }
           },
           "400": {
-            "description": "Bad request, invalid input",
+            "description": "Bad request, failed to generate OAuth URL",
             "content": {
               "application/json": {
                 "schema": {
@@ -245,7 +293,7 @@
         ]
       }
     },
-    "/users/me": {
+    "/users/user-profile": {
       "get": {
         "tags": [
           "Users"
@@ -290,6 +338,28 @@
                               "type": "string",
                               "description": "User's full name",
                               "example": "John Doe"
+                            },
+                            "avatar": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL of the user's avatar photo",
+                              "example": "https://www.example.com/avatar.jpg"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "format": "float",
+                              "description": "User's weight in kilograms",
+                              "example": 70.5
+                            },
+                            "activityLevel": {
+                              "type": "integer",
+                              "description": "User's activity level on a scale of 1 to 5",
+                              "example": 3
+                            },
+                            "gender": {
+                              "type": "string",
+                              "description": "User's gender",
+                              "example": "female"
                             }
                           }
                         }
@@ -327,7 +397,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "tags": [
           "Users"
         ],
@@ -337,7 +407,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -357,6 +427,28 @@
                     "format": "password",
                     "description": "The user's new password",
                     "example": "newpassword123"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of the user's new avatar photo",
+                    "example": "https://www.example.com/new-avatar.jpg"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Updated weight in kilograms",
+                    "example": 68
+                  },
+                  "activityLevel": {
+                    "type": "integer",
+                    "description": "Updated activity level on a scale of 1 to 5",
+                    "example": 4
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Updated gender",
+                    "example": "male"
                   }
                 }
               }
@@ -397,6 +489,28 @@
                             "email": {
                               "type": "string",
                               "example": "john.doe@example.com"
+                            },
+                            "avatar": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL of the user's updated avatar photo",
+                              "example": "https://www.example.com/new-avatar.jpg"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "format": "float",
+                              "description": "Updated weight in kilograms",
+                              "example": 68
+                            },
+                            "activityLevel": {
+                              "type": "integer",
+                              "description": "Updated activity level on a scale of 1 to 5",
+                              "example": 4
+                            },
+                            "gender": {
+                              "type": "string",
+                              "description": "Updated gender",
+                              "example": "male"
                             }
                           }
                         }
@@ -463,23 +577,6 @@
         "summary": "Refresh the authentication token",
         "operationId": "refreshToken",
         "description": "Obtain a new authentication token using a refresh token",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "refreshToken": {
-                    "type": "string",
-                    "description": "The refresh token",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Token refreshed successfully",
@@ -534,7 +631,7 @@
         "security": []
       }
     },
-    "/users/total": {
+    "/users/total-users": {
       "get": {
         "tags": [
           "Users"
@@ -669,7 +766,7 @@
         "security": []
       }
     },
-    "/users/reset-password": {
+    "/users/reset-pwd": {
       "post": {
         "tags": [
           "Users"
@@ -747,59 +844,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/422"
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    },
-    "/users/google-auth": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get Google OAuth URL",
-        "description": "Retrieve the URL for Google OAuth login",
-        "operationId": "getGoogleOAuthUrl",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved Google OAuth URL",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully retrieved Google OAuth URL"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "oauthUrl": {
-                          "type": "string",
-                          "description": "The URL to initiate Google OAuth login",
-                          "example": "https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fconfirm-google-auth"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request, failed to generate OAuth URL",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
                 }
               }
             }

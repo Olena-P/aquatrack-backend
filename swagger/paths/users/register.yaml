@@ -10,10 +10,6 @@ requestBody:
       schema:
         type: object
         properties:
-          name:
-            type: string
-            description: User's full name
-            example: John Doe
           email:
             type: string
             format: email

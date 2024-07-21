@@ -6,8 +6,10 @@ import {
   requestResetToken,
   resetPassword,
   loginOrSignupWithGoogle,
-  getUsersCount,
-} from '../services/auth.js';
+  getUserProfile,
+  updateUserProfile,
+  getTotalUsers,
+} from '../services/users.js';
 import { ONE_DAY } from '../constants/index.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
@@ -126,12 +128,40 @@ export const loginWithGoogleController = async (req, res) => {
   });
 };
 
-export const getUsersCountController = async (req, res, next) => {
-  const count = await getUsersCount();
-  res.status(200).json({ count });
+export const getUserProfileController = async (req, res, next) => {
+  try {
+    console.log('User in controller:', req.user);
+    const userId = req.user.id;
+    const userProfile = await getUserProfile(userId);
+
+    res.status(200).json({
+      status: 200,
+      message: 'User profile retrieved successfully',
+      data: userProfile,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
+export const updateUserProfileController = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const updateData = req.body;
 
+    const updatedUserProfile = await updateUserProfile(userId, updateData);
 
+    res.status(200).json({
+      status: 200,
+      message: 'User profile updated successfully',
+      data: updatedUserProfile,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-
+export const getUsersTotalController = async (req, res, next) => {
+  const count = await getTotalUsers();
+  res.status(200).json({ count });
+};
