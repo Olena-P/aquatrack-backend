@@ -30,7 +30,7 @@ paths:
   /users/user-profile:
     get:
       $ref: '../swagger/paths/users/get-user-profile.yaml'
-    put:
+    patch:
       $ref: '../swagger/paths/users/patch-user-profile.yaml'
   /users/refresh-token:
     post:

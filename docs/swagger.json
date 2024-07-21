@@ -397,7 +397,7 @@
           }
         ]
       },
-      "put": {
+      "patch": {
         "tags": [
           "Users"
         ],

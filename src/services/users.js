@@ -203,19 +203,18 @@ export const getUserProfile = async (userId) => {
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
-  return user.toJSON();
+  return user;
 };
 
 export const updateUserProfile = async (userId, updateData) => {
-  const user = await UsersCollection.findByIdAndUpdate(
-    userId,
-    { $set: updateData },
-    { new: true, runValidators: true },
-  ).select('-password -__v');
+  const user = await UsersCollection.findByIdAndUpdate(userId, updateData, {
+    new: true,
+    runValidators: true,
+  });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
-  return user.toJSON();
+  return user;
 };
 
 export const getTotalUsers = async () => {

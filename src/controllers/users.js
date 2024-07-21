@@ -130,11 +130,14 @@ export const loginWithGoogleController = async (req, res) => {
 
 export const getUserProfileController = async (req, res, next) => {
   try {
-    const user = await getUserProfile(req.user.id);
-    res.json({
+    console.log('User in controller:', req.user);
+    const userId = req.user.id;
+    const userProfile = await getUserProfile(userId);
+
+    res.status(200).json({
       status: 200,
-      message: 'Successfully retrieved user profile',
-      data: { user },
+      message: 'User profile retrieved successfully',
+      data: userProfile,
     });
   } catch (error) {
     next(error);
@@ -143,11 +146,15 @@ export const getUserProfileController = async (req, res, next) => {
 
 export const updateUserProfileController = async (req, res, next) => {
   try {
-    const updatedUser = await updateUserProfile(req.user.id, req.body);
-    res.json({
+    const userId = req.user.id;
+    const updateData = req.body;
+
+    const updatedUserProfile = await updateUserProfile(userId, updateData);
+
+    res.status(200).json({
       status: 200,
-      message: 'Profile updated successfully!',
-      data: { user: updatedUser },
+      message: 'User profile updated successfully',
+      data: updatedUserProfile,
     });
   } catch (error) {
     next(error);
