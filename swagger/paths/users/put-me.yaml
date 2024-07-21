@@ -1,8 +1,8 @@
 tags:
   - Users
-summary: Update current user
-security:
-  - bearerAuth: []
+summary: Update user profile
+description: Update the current user's profile information
+operationId: updateUserProfile
 requestBody:
   required: true
   content:
@@ -12,43 +12,71 @@ requestBody:
         properties:
           name:
             type: string
+            description: The user's name
+            example: John Doe
           email:
             type: string
-          gender:
+            format: email
+            description: The user's email address
+            example: john.doe@example.com
+          password:
             type: string
-          weight:
-            type: number
-          activeTime:
-            type: number
-          dailyWaterIntake:
-            type: number
-          avatar:
-            type: string
+            format: password
+            description: The user's new password
+            example: newpassword123
 responses:
   '200':
-    description: User updated
+    description: User profile updated successfully
     content:
       application/json:
         schema:
           type: object
           properties:
-            id:
+            status:
+              type: integer
+              example: 200
+            message:
               type: string
-            email:
-              type: string
-            name:
-              type: string
-            gender:
-              type: string
-            weight:
-              type: number
-            activeTime:
-              type: number
-            dailyWaterIntake:
-              type: number
-            avatar:
-              type: string
+              example: Profile updated successfully!
+            data:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: User ID
+                      example: 60d9f6f4f6f4f6f4f6f4f6f
+                    name:
+                      type: string
+                      example: John Doe
+                    email:
+                      type: string
+                      example: john.doe@example.com
+  '400':
+    description: Bad request, invalid input
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/400.yaml
   '401':
-    description: Unauthorized
+    description: Unauthorized, authentication required
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/401.yaml
   '404':
     description: User not found
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/404.yaml
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/500.yaml
+security:
+  - bearerAuth: []

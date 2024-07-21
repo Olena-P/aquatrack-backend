@@ -1,6 +1,8 @@
 tags:
   - Users
-summary: User registration
+summary: Register a new user
+operationId: registerUser
+description: Register a new user with the provided information
 requestBody:
   required: true
   content:
@@ -8,23 +10,53 @@ requestBody:
       schema:
         type: object
         properties:
+          name:
+            type: string
+            description: User's full name
+            example: John Doe
           email:
             type: string
+            format: email
+            description: User's email address
+            example: user@example.com
           password:
             type: string
+            format: password
+            description: User's password
+            example: password123
 responses:
   '201':
-    description: User created
+    description: User registered successfully
     content:
       application/json:
         schema:
           type: object
           properties:
-            id:
+            status:
+              type: integer
+              example: 201
+            message:
               type: string
-            email:
-              type: string
-  '409':
-    description: Email in use
-security:
-  - bearerAuth: []
+              example: User registered successfully!
+            data:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 60d0fe4f5311236168a109ca
+                    name:
+                      type: string
+                      example: John Doe
+                    email:
+                      type: string
+                      example: user@example.com
+  '400':
+    description: Bad request, invalid input
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/400.yaml
+security: []

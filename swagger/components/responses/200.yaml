@@ -1,41 +1,32 @@
-description: Successful response
-content:
-  application/json:
-    schema:
-      type: object
-      required:
-        - status
-        - message
-        - data
-      properties:
-        status:
-          type: integer
-          example: 200
-        message:
-          type: string
-          example: Success
-        data:
-          type: object
-          properties:
-            water:
-              type: array
-              items:
-                $ref: ..\schemas\
-            page:
-              type: integer
-              example: 1
-            perPage:
-              type: integer
-              example: 10
-            totalItems:
-              type: integer
-              example: 50
-            totalPages:
-              type: integer
-              example: 5
-            hasPreviousPage:
-              type: boolean
-              example: false
-            hasNextPage:
-              type: boolean
-              example: true
+type: object
+properties:
+  status:
+    type: integer
+    example: 200
+  message:
+    type: string
+    example: Operation successful
+  data:
+    type: object
+    description: The data returned by the API request
+    properties:
+      # Add specific properties relevant to the operation
+      # For example, if updating a user profile, you might include user details:
+      user:
+        type: object
+        properties:
+          id:
+            type: string
+            description: User ID
+            example: 60d9f6f4f6f4f6f4f6f4f6f
+          name:
+            type: string
+            example: John Doe
+          email:
+            type: string
+            example: john.doe@example.com
+      # Include other relevant data properties if needed
+required:
+  - status
+  - message
+  - data

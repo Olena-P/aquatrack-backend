@@ -1,6 +1,8 @@
 tags:
   - Users
-summary: Refresh user's session
+summary: Refresh the authentication token
+operationId: refreshToken
+description: Obtain a new authentication token using a refresh token
 requestBody:
   required: true
   content:
@@ -8,23 +10,40 @@ requestBody:
       schema:
         type: object
         properties:
-          sessionId:
-            type: string
           refreshToken:
             type: string
+            description: The refresh token
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 responses:
   '200':
-    description: Session refreshed
+    description: Token refreshed successfully
     content:
       application/json:
         schema:
           type: object
           properties:
-            accessToken:
+            status:
+              type: integer
+              example: 200
+            message:
               type: string
-            refreshToken:
-              type: string
+              example: Token refreshed successfully!
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  '400':
+    description: Bad request, invalid input
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/400.yaml
   '401':
-    description: Unauthorized
-security:
-  - bearerAuth: []
+    description: Unauthorized, invalid refresh token
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/401.yaml
+security: []
