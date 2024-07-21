@@ -628,6 +628,137 @@
         }
       }
     },
+    "/water/daily": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get data on the consumed water for the day",
+        "operationId": "getWaterPerDay",
+        "description": "Get data on the consumed water for the day",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 2024
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{2}$",
+              "example": "07"
+            }
+          },
+          {
+            "in": "query",
+            "name": "day",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{2}$",
+              "example": "20"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found data!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/water"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/water/month": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get data on the consumed water for the month",
+        "operationId": "getWaterPerMonth",
+        "description": "Get data on the consumed water for the month",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 2024
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{2}$",
+              "example": "07"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found data!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
     "/water/{id}": {
       "put": {
         "tags": [
@@ -832,6 +963,16 @@
             "description": "Time of creation of data on the volume of water consumed",
             "type": "string",
             "example": "09:50"
+          },
+          "createdAt": {
+            "description": "Document creation time (generated automatically)",
+            "type": "string",
+            "example": "2024-06-10T19:50:56.197+00:00"
+          },
+          "updatedAt": {
+            "description": "Document update time (generated automatically)",
+            "type": "string",
+            "example": "2024-06-10T19:50:56.197+00:00"
           }
         }
       }

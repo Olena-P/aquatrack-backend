@@ -47,6 +47,12 @@ paths:
   /water:
     post:
       $ref: '../swagger/paths/water/post.yaml'
+  /water/daily:
+    get:
+      $ref: '../swagger/paths/water/daily/get.yaml'
+  /water/month:
+    get:
+      $ref: '../swagger/paths/water/month/get.yaml'
   /water/{id}:
     put:
       $ref: '../swagger/paths/water/{id}/put.yaml'
