@@ -1131,28 +1131,40 @@
     },
     "schemas": {
       "400": {
-        "description": "Bad request error",
-        "content": {
-          "application/json": {
-            "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad request, please check your input"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
               "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
               "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 400
-                },
-                "message": {
+                "field": {
                   "type": "string",
-                  "example": "BadRequestError"
+                  "description": "The field that caused the error",
+                  "example": "email"
+                },
+                "error": {
+                  "type": "string",
+                  "description": "Description of the error",
+                  "example": "Email address is required"
                 }
               }
-            }
+            },
+            "description": "A list of specific validation errors"
           }
-        }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
       },
       "401": {
         "description": "Unauthorized error",
@@ -1192,28 +1204,26 @@
         }
       },
       "404": {
-        "description": "Not found error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "NotFoundError"
-                }
-              }
-            }
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Resource not found"
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional information about the missing resource",
+            "example": "The user with the given ID does not exist"
           }
-        }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
       },
       "422": {
         "description": "Unprocessable Entity",
@@ -1252,11 +1262,15 @@
         }
       },
       "500": {
-        "description": "Internal server error",
+        "description": "Internal Server Error",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1264,11 +1278,12 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "An unexpected error occurred. Please try again later."
+                  "example": "An unexpected error occurred on the server"
                 },
-                "error": {
+                "details": {
                   "type": "string",
-                  "example": "InternalServerError"
+                  "description": "Additional information about the error",
+                  "example": "The database connection failed or some other internal issue"
                 }
               }
             }
@@ -1358,28 +1373,26 @@
         }
       },
       "404": {
-        "description": "Not found error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "NotFoundError"
-                }
-              }
-            }
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Resource not found"
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional information about the missing resource",
+            "example": "The user with the given ID does not exist"
           }
-        }
+        },
+        "required": [
+          "status",
+          "message"
+        ]
       }
     }
   }
