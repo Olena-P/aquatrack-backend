@@ -750,12 +750,12 @@
       }
     },
     "/water/{id}": {
-      "put": {
+      "patch": {
         "tags": [
           "Water"
         ],
         "summary": "Update water volume by id",
-        "operationId": "putWater",
+        "operationId": "patchWater",
         "description": "Update water volume by id",
         "security": [
           {
@@ -912,11 +912,7 @@
       "water": {
         "type": "object",
         "required": [
-          "_id",
-          "volume",
-          "userId",
-          "data",
-          "time"
+          "volume"
         ],
         "properties": {
           "_id": {

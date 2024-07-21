@@ -18,13 +18,11 @@ export const createWaterController = async (req, res) => {
   });
 };
 
-export const upsertWaterVolumeController = async (req, res, next) => {
+export const patchWaterVolumeController = async (req, res, next) => {
   const userId = req.user._id;
   const { waterId } = req.params;
 
-  const result = await updateWaterVolume(waterId, req.body, userId, {
-    upsert: true,
-  });
+  const result = await updateWaterVolume(waterId, {...req.body}, userId);
 
   if (!result) {
     next(createHttpError(404, 'Water volume not found'));
