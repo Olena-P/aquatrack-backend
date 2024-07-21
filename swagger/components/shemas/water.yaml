@@ -1,10 +1,6 @@
 type: object
 required:
-  - _id
   - volume
-  - userId
-  - data
-  - time
 properties:
   _id:
     description: "Water's id"

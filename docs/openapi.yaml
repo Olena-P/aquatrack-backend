@@ -54,8 +54,8 @@ paths:
     get:
       $ref: '../swagger/paths/water/month/get.yaml'
   /water/{id}:
-    put:
-      $ref: '../swagger/paths/water/{id}/put.yaml'
+    patch:
+      $ref: '../swagger/paths/water/{id}/patch.yaml'
     delete:
       $ref: '../swagger/paths/water/{id}/delete.yaml'
 components:
