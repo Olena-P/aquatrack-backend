@@ -38,7 +38,7 @@ paths:
   /users/total-users:
     get:
       $ref: '../swagger/paths/users/total-users.yaml'
-  /users/request-reset-password:
+  /users/request-reset-pwd:
     post:
       $ref: '../swagger/paths/users/request-reset-pwd.yaml'
   /users/reset-pwd:
