@@ -1,15 +1,24 @@
-type: object
-properties:
-  status:
-    type: integer
-    example: 404
-  message:
-    type: string
-    example: Resource not found
-  details:
-    type: string
-    description: Additional information about the missing resource
-    example: The user with the given ID does not exist
-required:
-  - status
-  - message
+description: Not found error
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example:  Not found
+        data:
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+              example: 'Not found'
