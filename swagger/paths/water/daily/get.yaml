@@ -37,6 +37,6 @@ responses:
             data:
               type: array
               items:
-                $ref: ..\..\..\components\shemas\water.yaml
+                $ref: ..\..\..\components\schemas\water.yaml
   '401':
     $ref: '../../../components/responses/401.yaml'

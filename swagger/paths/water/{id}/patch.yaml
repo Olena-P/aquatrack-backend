@@ -14,7 +14,7 @@ parameters:
       example: '669ba5f44b0321e6c93ae9f3'
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         properties:
@@ -42,7 +42,7 @@ responses:
               example: 'Successfully updated water volume!'
             data:
               type: object
-              $ref: '../../../components/shemas/water.yaml'
+              $ref: '../../../components/schemas/water.yaml'
   '401':
     $ref: '../../../components/responses/401.yaml'
   '404':

@@ -695,7 +695,7 @@
         ]
       }
     },
-    "/users/request-reset-password": {
+    "/users/request-reset-pwd": {
       "post": {
         "tags": [
           "Users"
@@ -867,7 +867,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
@@ -1077,7 +1077,7 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
