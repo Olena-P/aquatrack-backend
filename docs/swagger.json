@@ -68,33 +68,11 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "User registered successfully!"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
                         "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "example": "60d0fe4f5311236168a109ca"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "John Doe"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "user@example.com"
-                            }
-                          }
+                          "$ref": "#/components/schemas/user"
                         }
                       }
                     }
@@ -103,18 +81,15 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request, invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+          "409": {
+            "description": "Email in use"
           }
         },
-        "security": []
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/users/login": {
@@ -151,6 +126,7 @@
         },
         "responses": {
           "200": {
+            "401": null,
             "description": "Login successful",
             "content": {
               "application/json": {
@@ -177,17 +153,8 @@
                   }
                 }
               }
-            }
-          },
-          "401": {
-            "description": "Unauthorized, invalid credentials",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            },
+            "$ref": "#/components/responses/401"
           }
         },
         "security": []
@@ -251,39 +218,31 @@
         "tags": [
           "Users"
         ],
-        "summary": "Logout from the application",
-        "operationId": "logoutUser",
-        "description": "Logout from the application and invalidate the user's token",
-        "responses": {
-          "200": {
-            "description": "Logout successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Logout successful!"
-                    }
+        "summary": "User logout",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sessionId": {
+                    "type": "string"
+                  },
+                  "refreshToken": {
+                    "type": "string"
                   }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful logout"
           },
           "401": {
-            "description": "Unauthorized, invalid token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           }
         },
         "security": [
@@ -590,45 +549,25 @@
                       "example": 200
                     },
                     "message": {
-                      "type": "string",
-                      "example": "Token refreshed successfully!"
+                      "type": "string"
                     },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                        }
-                      }
+                    "refreshToken": {
+                      "type": "string"
                     }
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad request, invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
-          },
           "401": {
-            "description": "Unauthorized, invalid refresh token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           }
         },
-        "security": []
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/users/total-users": {
@@ -1331,6 +1270,67 @@
                 }
               }
             }
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's id",
+            "type": "string",
+            "example": "669ba5cc4b0321e6c93ae9e0"
+          },
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "Milana Ostapchuk"
+          },
+          "email": {
+            "description": "User's email",
+            "type": "string",
+            "example": "ost@mail.com"
+          },
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "example": "121232"
+          },
+          "avatar": {
+            "description": "User's photo",
+            "type": "string",
+            "example": "https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg"
+          },
+          "weight": {
+            "description": "User's weight in kilograms",
+            "type": "number",
+            "example": 56
+          },
+          "activityLevel": {
+            "description": "User's activity level (e.g., 1 = sedentary, 2 = lightly active, 3 = moderately active, 4 = very active)",
+            "type": "number",
+            "example": 2
+          },
+          "gender": {
+            "description": "User's gender",
+            "type": "string",
+            "example": "female"
+          },
+          "createdAt": {
+            "description": "Document creation time",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-20T14:16:59.757Z"
+          },
+          "updatedAt": {
+            "description": "Document update time",
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-07-20T14:16:59.757Z"
           }
         }
       },

@@ -14,6 +14,10 @@ const usersSchema = new Schema(
     weight: Number,
     activityLevel: Number,
     gender: { type: String, default: 'female' },
+    dailyRequirement: {
+      type: Number,
+      default: 2000,
+    },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

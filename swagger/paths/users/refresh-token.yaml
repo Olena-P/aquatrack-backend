@@ -16,23 +16,11 @@ responses:
               example: 200
             message:
               type: string
-              example: Token refreshed successfully!
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-  '400':
-    description: Bad request, invalid input
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/400.yaml
+            refreshToken:
+              type: string
+  # '401':
+  #   description: Unauthorized
   '401':
-    description: Unauthorized, invalid refresh token
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/401.yaml
-security: []
+    $ref: '../../components/responses/401.yaml'
+security:
+  - bearerAuth: []

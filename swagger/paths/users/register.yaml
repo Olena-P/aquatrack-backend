@@ -28,31 +28,16 @@ responses:
         schema:
           type: object
           properties:
-            status:
-              type: integer
-              example: 201
-            message:
-              type: string
-              example: User registered successfully!
+            # id:
+            #   type: string
+            # email:
+            #   type: string
             data:
               type: object
               properties:
                 user:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      example: 60d0fe4f5311236168a109ca
-                    name:
-                      type: string
-                      example: John Doe
-                    email:
-                      type: string
-                      example: user@example.com
-  '400':
-    description: Bad request, invalid input
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/400.yaml
-security: []
+                  $ref: ..\..\components\schemas\user.yaml
+  '409':
+    description: Email in use
+security:
+  - bearerAuth: []
