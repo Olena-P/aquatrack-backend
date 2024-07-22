@@ -1,26 +1,20 @@
 tags:
   - Users
-summary: Refresh user's session
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          sessionId:
-            type: string
-          refreshToken:
-            type: string
+summary: Refresh the authentication token
+operationId: refreshToken
+description: Obtain a new authentication token using a refresh token
 responses:
   '200':
-    description: Session refreshed
+    description: Token refreshed successfully
     content:
       application/json:
         schema:
           type: object
           properties:
-            accessToken:
+            status:
+              type: integer
+              example: 200
+            message:
               type: string
             refreshToken:
               type: string

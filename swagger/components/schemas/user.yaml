@@ -19,11 +19,29 @@ properties:
     description: "User's password"
     type: string
     example: '121232'
+  avatar:
+    description: "User's photo"
+    type: string
+    example: 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
+  weight:
+    description: "User's weight in kilograms"
+    type: number
+    example: 56
+  activityLevel:
+    description: "User's activity level (e.g., 1 = sedentary, 2 = lightly active, 3 = moderately active, 4 = very active)"
+    type: number
+    example: 2
+  gender:
+    description: "User's gender"
+    type: string
+    example: 'female'
   createdAt:
     description: 'Document creation time'
     type: string
+    format: date-time
     example: '2024-07-20T14:16:59.757Z'
   updatedAt:
     description: 'Document update time'
     type: string
+    format: date-time
     example: '2024-07-20T14:16:59.757Z'

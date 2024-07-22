@@ -1,0 +1,70 @@
+tags:
+  - Users
+summary: Get current user's profile
+description: Retrieve the profile information of the currently logged-in user
+operationId: getCurrentUserProfile
+responses:
+  '200':
+    description: Successfully retrieved user profile
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully retrieved user profile
+            data:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: User's unique identifier
+                      example: 607f1f77bcf86cd799439011
+                    email:
+                      type: string
+                      format: email
+                      description: User's email address
+                      example: user@example.com
+                    name:
+                      type: string
+                      description: User's full name
+                      example: John Doe
+                    avatar:
+                      type: string
+                      format: uri
+                      description: URL of the user's avatar photo
+                      example: https://www.example.com/avatar.jpg
+                    weight:
+                      type: number
+                      format: float
+                      description: User's weight in kilograms
+                      example: 70.5
+                    activityLevel:
+                      type: integer
+                      description: User's activity level on a scale of 1 to 5
+                      example: 3
+                    gender:
+                      type: string
+                      description: User's gender
+                      example: female
+  '401':
+    description: Unauthorized, user not logged in
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/401.yaml'
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/500.yaml'
+security:
+  - bearerAuth: []

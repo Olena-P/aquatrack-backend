@@ -1,0 +1,37 @@
+tags:
+  - Users
+summary: Get total number of users
+description: Retrieve the total number of users in the system
+operationId: getTotalUsers
+responses:
+  '200':
+    description: Total number of users retrieved successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            totalUsers:
+              type: integer
+              description: The total number of users in the system
+              example: 120
+  '400':
+    description: Bad request, invalid parameters
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/400.yaml
+  '401':
+    description: Unauthorized, authentication required
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/401.yaml
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/responses/500.yaml
+security:
+  - bearerAuth: []

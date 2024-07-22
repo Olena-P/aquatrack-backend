@@ -1,6 +1,8 @@
 tags:
   - Users
-summary: User registration
+summary: Register a new user
+operationId: registerUser
+description: Register a new user with the provided information
 requestBody:
   required: true
   content:
@@ -10,11 +12,17 @@ requestBody:
         properties:
           email:
             type: string
+            format: email
+            description: User's email address
+            example: user@example.com
           password:
             type: string
+            format: password
+            description: User's password
+            example: password123
 responses:
   '201':
-    description: User created
+    description: User registered successfully
     content:
       application/json:
         schema:

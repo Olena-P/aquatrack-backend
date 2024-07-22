@@ -13,6 +13,7 @@ const usersSchema = new Schema(
     avatar: { type: String },
     weight: Number,
     activityLevel: Number,
+    gender: { type: String, default: 'female' },
     dailyRequirement: {
       type: Number,
       default: 2000,
@@ -30,6 +31,3 @@ usersSchema.methods.toJSON = function () {
 };
 
 export const UsersCollection = model('users', usersSchema);
-
-
-
