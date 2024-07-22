@@ -1,45 +1,52 @@
 tags:
   - Water
-summary: Creates water volume data
-operationId: createWater
-description: "Create water volum data with payload"
+summary: Get data on the consumed water for the month
+operationId: getWaterPerMonth
+description: 'Get data on the consumed water for the month'
 security:
   - bearerAuth: []
-requestBody:
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - volume
-        properties:
-          volume:
-            description: "Water's volume"
-            type: number
-            example: 80
+parameters:
+  - in: query
+    name: year
+    schema:
+      type: integer
+    example: 2024
+  - in: query
+    name: month
+    schema:
+      type: string
+      pattern: '^\d{2}$'
+      example: '07'
+    description: ''
 responses:
-  '201':
-    description: Creates water volume
+  '200':
+    description: Successfully found data!
     content:
       application/json:
         schema:
           type: object
           required:
-            - status
-            - message
             - data
           properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Successfully created!
             data:
-              type: object
-              $ref: '../../components/schemas/water.yaml'
+              type: array
+              items:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    example: '22.07.2024'
+                  volume:
+                    type: integer
+                    example: 600
+                  dailyRequirement:
+                    type: integer
+                    example: 2000
+                  percentage:
+                    type: string
+                    example: '30%'
+                  entriesQuantity:
+                    type: integer
+                    example: 3
   '401':
     $ref: '../../components/responses/401.yaml'
-
-
-

@@ -69,9 +69,9 @@ export const getWaterVolumePerDay = async (year, month, day, userId) => {
     return { ...item.toObject(), dailyRequirement };
   });
 
-  const percentDay = (totalDay / dailyRequirement) * 100;
+  const progressDay = Math.round((totalDay / dailyRequirement) * 100);
 
-  return { data: updatedData, percentDay: percentDay.toFixed(2) };
+  return { data: updatedData, progressDay };
 };
 
 export const getWaterVolumePerMonth = async (year, month, userId) => {
@@ -97,7 +97,7 @@ export const getWaterVolumePerMonth = async (year, month, userId) => {
 
     acc[date].volume += item.volume;
     acc[date].entriesQuantity += 1;
-    acc[date].percentage = ((acc[date].volume / acc[date].dailyRequirement) * 100).toFixed(2);
+    acc[date].percentage = Math.round((acc[date].volume / acc[date].dailyRequirement) * 100) + '%';
 
     return acc;
   }, {});
@@ -114,4 +114,3 @@ export const getWaterVolumePerMonth = async (year, month, userId) => {
 
   return sortedResult;
 };
-
