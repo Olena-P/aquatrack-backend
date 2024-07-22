@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:
@@ -37,7 +37,7 @@ responses:
               example: Successfully created!
             data:
               type: object
-              $ref: '../../components/shemas/water.yaml'
+              $ref: '../../components/schemas/water.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
 
