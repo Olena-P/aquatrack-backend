@@ -8,7 +8,7 @@ properties:
     example: 669b4b5ee4582ae60fc053a8
   volume:
     description: "Water's volume"
-    type: string
+    type: number
     example: 60
   userId:
     description: 'Id of the user who manages the water volume'
