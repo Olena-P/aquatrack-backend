@@ -3,6 +3,8 @@ tags:
 summary: Confirm Google OAuth
 description: Handle the callback from Google OAuth and log in the user
 operationId: confirmGoogleOAuth
+security:
+  - bearerAuth: []
 requestBody:
   required: true
   content:
@@ -15,7 +17,7 @@ requestBody:
             description: The authorization code returned by Google
             example: 4/P7q7W91a-oMsCeLvIaQm6bTrgtp7
 responses:
-  200:
+  '200':
     description: Successfully logged in via Google OAuth
     content:
       application/json:
@@ -35,5 +37,7 @@ responses:
                   type: string
                   description: The JWT access token for the user
                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-security:
-  - bearerAuth: []
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'

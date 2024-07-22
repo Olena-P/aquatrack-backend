@@ -24,6 +24,9 @@ paths:
   /users/google-auth:
     post:
       $ref: '../swagger/paths/users/get-oauth-url.yaml'
+  /users/google-login:
+    post:
+      $ref: '../swagger/paths/users/confirm-oauth.yaml'
   /users/logout:
     post:
       $ref: '../swagger/paths/users/logout.yaml'
