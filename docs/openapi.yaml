@@ -21,10 +21,10 @@ paths:
   /users/login:
     post:
       $ref: '../swagger/paths/users/login.yaml'
-  /users/google-auth:
+  /users/google-oauth:
     post:
       $ref: '../swagger/paths/users/get-oauth-url.yaml'
-  /users/google-login:
+  /users/confirm-google-oauth:
     post:
       $ref: '../swagger/paths/users/confirm-oauth.yaml'
   /users/logout:

@@ -161,7 +161,7 @@
         "security": []
       }
     },
-    "/users/google-auth": {
+    "/users/google-oauth": {
       "post": {
         "tags": [
           "Users"
@@ -211,7 +211,7 @@
         }
       }
     },
-    "/users/google-login": {
+    "/users/confirm-google-oauth": {
       "post": {
         "tags": [
           "Users"
