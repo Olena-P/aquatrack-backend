@@ -716,7 +716,7 @@
                 "properties": {
                   "volume": {
                     "description": "Water's volume",
-                    "type": "string",
+                    "type": "number",
                     "example": 80
                   }
                 }
@@ -923,7 +923,7 @@
                 "properties": {
                   "volume": {
                     "description": "Water volume",
-                    "type": "string",
+                    "type": "number",
                     "example": 60
                   }
                 }
@@ -1088,7 +1088,7 @@
           },
           "volume": {
             "description": "Water's volume",
-            "type": "string",
+            "type": "number",
             "example": 60
           },
           "userId": {
