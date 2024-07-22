@@ -30,15 +30,7 @@ responses:
               type: string
               example: Password reset link sent successfully!
   '400':
-    description: Bad request, invalid input
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/400.yaml
+    $ref: ../../components/responses/400.yaml
   '404':
-    description: Not Found, email not registered
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/404.yaml
+    $ref: ../../components/responses/404.yaml
 security: []

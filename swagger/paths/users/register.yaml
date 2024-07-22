@@ -28,10 +28,6 @@ responses:
         schema:
           type: object
           properties:
-            # id:
-            #   type: string
-            # email:
-            #   type: string
             data:
               type: object
               properties:

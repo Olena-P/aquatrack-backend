@@ -3,6 +3,8 @@ tags:
 summary: Get current user's profile
 description: Retrieve the profile information of the currently logged-in user
 operationId: getCurrentUserProfile
+security:
+  - bearerAuth: []
 responses:
   '200':
     description: Successfully retrieved user profile
@@ -55,16 +57,7 @@ responses:
                       description: User's gender
                       example: female
   '401':
-    description: Unauthorized, user not logged in
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'
   '500':
-    description: Internal server error
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/500.yaml'
-security:
-  - bearerAuth: []
+    $ref: '../../components/responses/500.yaml'
+

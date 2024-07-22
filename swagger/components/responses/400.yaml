@@ -1,25 +1,17 @@
-type: object
-properties:
-  status:
-    type: integer
-    example: 400
-  message:
-    type: string
-    example: Bad request, please check your input
-  errors:
-    type: array
-    items:
+description: Bad request
+content:
+  application/json:
+    schema:
       type: object
+      required:
+        - status
+        - message
       properties:
-        field:
+        status:
+          type: integer
+          example: 400
+        message:
           type: string
-          description: The field that caused the error
-          example: email
-        error:
-          type: string
-          description: Description of the error
-          example: Email address is required
-    description: A list of specific validation errors
-required:
-  - status
-  - message
+          example: Bad request
+
+

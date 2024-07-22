@@ -40,12 +40,6 @@ responses:
                 token:
                   type: string
                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-    # '401':
-    # description: Unauthorized, invalid credentials
-    # content:
-    #   application/json:
-    #     schema:
-    #       $ref: ..\..\components\responses\401.yaml
-    '401':
-    $ref: '../../components/responses/401.yaml'
+  '401':
+    $ref: ..\..\components\responses\401.yaml
 security: []

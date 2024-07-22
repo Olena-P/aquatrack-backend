@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://aquatrack-backend.onrender.com/api-docs"
     },
     {
-      "url": "https://aquatrack-backend.onrender.com/api-docs"
+      "url": "http://localhost:3000"
     }
   ],
   "tags": [
@@ -126,7 +126,6 @@
         },
         "responses": {
           "200": {
-            "401": null,
             "description": "Login successful",
             "content": {
               "application/json": {
@@ -153,7 +152,9 @@
                   }
                 }
               }
-            },
+            }
+          },
+          "401": {
             "$ref": "#/components/responses/401"
           }
         },
@@ -168,6 +169,11 @@
         "summary": "Get Google OAuth URL",
         "description": "Retrieve the URL for Google OAuth login",
         "operationId": "getGoogleOAuthUrl",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved Google OAuth URL",
@@ -200,17 +206,9 @@
             }
           },
           "400": {
-            "description": "Bad request, failed to generate OAuth URL",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+            "$ref": "#/components/responses/400"
           }
-        },
-        "security": []
+        }
       }
     },
     "/users/logout": {
@@ -219,6 +217,7 @@
           "Users"
         ],
         "summary": "User logout",
+        "operationId": "logoutUser",
         "requestBody": {
           "required": true,
           "content": {
@@ -260,6 +259,11 @@
         "summary": "Get current user's profile",
         "description": "Retrieve the profile information of the currently logged-in user",
         "operationId": "getCurrentUserProfile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved user profile",
@@ -330,31 +334,12 @@
             }
           },
           "401": {
-            "description": "Unauthorized, user not logged in",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/500"
-                }
-              }
-            }
+            "$ref": "#/components/responses/500"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       },
       "patch": {
         "tags": [
@@ -481,44 +466,16 @@
             }
           },
           "400": {
-            "description": "Bad request, invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+            "$ref": "#/components/responses/400"
           },
           "401": {
-            "description": "Unauthorized, authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/404"
-                }
-              }
-            }
+            "$ref": "#/components/responses/404"
           },
           "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/500"
-                }
-              }
-            }
+            "$ref": "#/components/responses/500"
           }
         },
         "security": [
@@ -597,34 +554,13 @@
             }
           },
           "400": {
-            "description": "Bad request, invalid parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+            "$ref": "#/components/responses/400"
           },
           "401": {
-            "description": "Unauthorized, authentication required",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/500"
-                }
-              }
-            }
+            "$ref": "#/components/responses/500"
           }
         },
         "security": [
@@ -682,24 +618,10 @@
             }
           },
           "400": {
-            "description": "Bad request, invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+            "$ref": "#/components/responses/400"
           },
           "404": {
-            "description": "Not Found, email not registered",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/404"
-                }
-              }
-            }
+            "$ref": "#/components/responses/404"
           }
         },
         "security": []
@@ -758,34 +680,13 @@
             }
           },
           "400": {
-            "description": "Bad request, invalid input",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/400"
-                }
-              }
-            }
+            "$ref": "#/components/responses/400"
           },
           "401": {
-            "description": "Unauthorized, invalid or expired reset token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/401"
-                }
-              }
-            }
+            "$ref": "#/components/responses/401"
           },
           "422": {
-            "description": "Unprocessable Entity, validation error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/422"
-                }
-              }
-            }
+            "$ref": "#/components/responses/422"
           }
         },
         "security": []
@@ -1113,166 +1014,6 @@
       }
     },
     "schemas": {
-      "400": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "Bad request, please check your input"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "field": {
-                  "type": "string",
-                  "description": "The field that caused the error",
-                  "example": "email"
-                },
-                "error": {
-                  "type": "string",
-                  "description": "Description of the error",
-                  "example": "Email address is required"
-                }
-              }
-            },
-            "description": "A list of specific validation errors"
-          }
-        },
-        "required": [
-          "status",
-          "message"
-        ]
-      },
-      "401": {
-        "description": "Unauthorized error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 401
-                },
-                "message": {
-                  "type": "string",
-                  "example": "UnauthorizedError"
-                },
-                "data": {
-                  "type": "object",
-                  "required": [
-                    "message"
-                  ],
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Access token expired"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "404": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "example": 404
-          },
-          "message": {
-            "type": "string",
-            "example": "Resource not found"
-          },
-          "details": {
-            "type": "string",
-            "description": "Additional information about the missing resource",
-            "example": "The user with the given ID does not exist"
-          }
-        },
-        "required": [
-          "status",
-          "message"
-        ]
-      },
-      "422": {
-        "description": "Unprocessable Entity",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 422
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Validation error"
-                },
-                "errors": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "field": {
-                        "type": "string",
-                        "example": "email"
-                      },
-                      "message": {
-                        "type": "string",
-                        "example": "Email is required"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "500": {
-        "description": "Internal Server Error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 500
-                },
-                "message": {
-                  "type": "string",
-                  "example": "An unexpected error occurred on the server"
-                },
-                "details": {
-                  "type": "string",
-                  "description": "Additional information about the error",
-                  "example": "The database connection failed or some other internal issue"
-                }
-              }
-            }
-          }
-        }
-      },
       "user": {
         "type": "object",
         "required": [
@@ -1379,6 +1120,30 @@
       }
     },
     "responses": {
+      "400": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                }
+              }
+            }
+          }
+        }
+      },
       "401": {
         "description": "Unauthorized error",
         "content": {
@@ -1417,26 +1182,106 @@
         }
       },
       "404": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "example": 404
-          },
-          "message": {
-            "type": "string",
-            "example": "Resource not found"
-          },
-          "details": {
-            "type": "string",
-            "description": "Additional information about the missing resource",
-            "example": "The user with the given ID does not exist"
+        "description": "Not found error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
           }
-        },
-        "required": [
-          "status",
-          "message"
-        ]
+        }
+      },
+      "422": {
+        "description": "Unprocessable Entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 422
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Validation error"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "example": "email"
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Email is required"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "An unexpected error occurred on the server"
+                },
+                "details": {
+                  "type": "string",
+                  "description": "Additional information about the error",
+                  "example": "The database connection failed or some other internal issue"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

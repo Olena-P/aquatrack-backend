@@ -91,28 +91,12 @@ responses:
                       description: Updated gender
                       example: male
   '400':
-    description: Bad request, invalid input
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/400.yaml'
+    $ref: '../../components/responses/400.yaml'
   '401':
-    description: Unauthorized, authentication required
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/401.yaml'
+    $ref: '../../components/responses/401.yaml'
   '404':
-    description: User not found
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/404.yaml'
+    $ref: '../../components/responses/404.yaml'
   '500':
-    description: Internal server error
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/500.yaml'
+    $ref: '../../components/responses/500.yaml'
 security:
   - bearerAuth: []

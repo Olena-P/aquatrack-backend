@@ -34,21 +34,9 @@ responses:
               type: string
               example: Password reset successfully!
   '400':
-    description: Bad request, invalid input
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/400.yaml
+    $ref: ../../components/responses/400.yaml
   '401':
-    description: Unauthorized, invalid or expired reset token
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/401.yaml
+    $ref: ../../components/responses/401.yaml
   '422':
-    description: Unprocessable Entity, validation error
-    content:
-      application/json:
-        schema:
-          $ref: ../../components/responses/422.yaml
+    $ref: ../../components/responses/422.yaml
 security: []

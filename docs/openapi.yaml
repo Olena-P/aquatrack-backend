@@ -12,8 +12,8 @@ tags:
   - name: Water
     description: Operations about water
 servers:
-  - url: http://localhost:3000
   - url: https://aquatrack-backend.onrender.com/api-docs
+  - url: http://localhost:3000
 paths:
   /users/register:
     post:

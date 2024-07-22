@@ -30,5 +30,5 @@ export const updateUserProfileSchema = Joi.object({
   avatar: Joi.string().uri().optional(),
   weight: Joi.number().optional(),
   activityLevel: Joi.number().integer().min(1).max(5).optional(),
-  gender: Joi.string().valid('male', 'female', 'other').optional(),
+  gender: Joi.string().valid('male', 'female').optional(),
 });
