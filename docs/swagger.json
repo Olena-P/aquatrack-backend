@@ -393,6 +393,11 @@
                               "type": "string",
                               "description": "User's gender",
                               "example": "female"
+                            },
+                            "dailyRequirement": {
+                              "type": "number",
+                              "description": "User's daily rate of water",
+                              "default": 2000
                             }
                           }
                         }
@@ -463,6 +468,11 @@
                     "type": "string",
                     "description": "Updated gender",
                     "example": "male"
+                  },
+                  "dailyRequirement": {
+                    "type": "number",
+                    "description": "User's daily rate of water",
+                    "default": 2000
                   }
                 }
               }
@@ -525,6 +535,11 @@
                               "type": "string",
                               "description": "Updated gender",
                               "example": "male"
+                            },
+                            "dailyRequirement": {
+                              "type": "number",
+                              "description": "User's daily rate of water",
+                              "default": 2000
                             }
                           }
                         }
@@ -767,57 +782,72 @@
         "tags": [
           "Water"
         ],
-        "summary": "Creates water volume data",
-        "operationId": "createWater",
-        "description": "Create water volum data with payload",
+        "summary": "Get data on the consumed water for the month",
+        "operationId": "getWaterPerMonth",
+        "description": "Get data on the consumed water for the month",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "volume"
-                ],
-                "properties": {
-                  "volume": {
-                    "description": "Water's volume",
-                    "type": "number",
-                    "example": 80
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "in": "query",
+            "name": "year",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 2024
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{2}$",
+              "example": "07"
+            },
+            "description": ""
           }
-        },
+        ],
         "responses": {
-          "201": {
-            "description": "Creates water volume",
+          "200": {
+            "description": "Successfully found data!",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
-                    "status",
-                    "message",
                     "data"
                   ],
                   "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully created!"
-                    },
                     "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/water"
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string",
+                            "example": "22.07.2024"
+                          },
+                          "volume": {
+                            "type": "integer",
+                            "example": 600
+                          },
+                          "dailyRequirement": {
+                            "type": "integer",
+                            "example": 2000
+                          },
+                          "percentage": {
+                            "type": "string",
+                            "example": "30%"
+                          },
+                          "entriesQuantity": {
+                            "type": "integer",
+                            "example": 3
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -836,7 +866,7 @@
           "Water"
         ],
         "summary": "Get data on the consumed water for the day",
-        "operationId": "getWaterPerDay",
+        "operationId": "getWaterVolumePerDay",
         "description": "Get data on the consumed water for the day",
         "security": [
           {
@@ -880,14 +910,53 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "progressDay"
                   ],
                   "properties": {
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/water"
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "669b4b5ee4582ae60fc053a8"
+                          },
+                          "volume": {
+                            "type": "integer",
+                            "example": 60
+                          },
+                          "userId": {
+                            "type": "string",
+                            "example": "669b4b40e4582ae60fc0539f"
+                          },
+                          "date": {
+                            "type": "string",
+                            "example": "20.07.2024"
+                          },
+                          "time": {
+                            "type": "string",
+                            "example": "09:50"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "example": "2024-07-22T12:44:28.417Z"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "example": "2024-07-22T12:44:28.417Z"
+                          },
+                          "dailyRequirement": {
+                            "type": "integer",
+                            "example": 2000
+                          }
+                        }
                       }
+                    },
+                    "progressDay": {
+                      "type": "integer",
+                      "example": 30
                     }
                   }
                 }
@@ -906,7 +975,7 @@
           "Water"
         ],
         "summary": "Get data on the consumed water for the month",
-        "operationId": "getWaterPerMonth",
+        "operationId": "getWaterVolumePerMonth",
         "description": "Get data on the consumed water for the month",
         "security": [
           {
@@ -1130,6 +1199,11 @@
             "description": "User's gender",
             "type": "string",
             "example": "female"
+          },
+          "dailyRequirement": {
+            "type": "number",
+            "description": "User's daily rate of water",
+            "default": 2000
           },
           "createdAt": {
             "description": "Document creation time",
