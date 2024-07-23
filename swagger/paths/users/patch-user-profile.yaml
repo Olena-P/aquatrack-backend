@@ -42,6 +42,10 @@ requestBody:
             type: string
             description: Updated gender
             example: male
+          dailyRequirement:
+            description: "User's daily rate of water"
+            type: number
+            default: 2000
 responses:
   '200':
     description: User profile updated successfully
