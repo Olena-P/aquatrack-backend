@@ -24,11 +24,6 @@ requestBody:
             format: password
             description: The user's new password
             example: newpassword123
-          avatar:
-            type: string
-            format: uri
-            description: URL of the user's new avatar photo
-            example: https://www.example.com/new-avatar.jpg
           weight:
             type: number
             format: float
@@ -46,6 +41,11 @@ requestBody:
             type: number
             description: User's daily rate of water
             default: 2000
+          photo:
+            type: string
+            format: uri
+            description: URL of the user's new photo photo
+            example: https://www.example.com/new-avatar.jpg
 responses:
   '200':
     description: User profile updated successfully
@@ -76,11 +76,6 @@ responses:
                     email:
                       type: string
                       example: john.doe@example.com
-                    avatar:
-                      type: string
-                      format: uri
-                      description: URL of the user's updated avatar photo
-                      example: https://www.example.com/new-avatar.jpg
                     weight:
                       type: number
                       format: float
@@ -98,6 +93,11 @@ responses:
                       type: number
                       description: User's daily rate of water
                       default: 2000
+                    photo:
+                      type: string
+                      format: uri
+                      description: URL of the user's updated photo photo
+                      example: https://www.example.com/new-avatar.jpg
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':

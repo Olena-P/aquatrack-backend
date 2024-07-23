@@ -27,8 +27,9 @@ export const updateUserProfileSchema = Joi.object({
   name: Joi.string().optional(),
   email: Joi.string().email().optional(),
   password: Joi.string().min(6).optional(),
-  avatar: Joi.string().uri().optional(),
   weight: Joi.number().optional(),
   activityLevel: Joi.number().integer().min(1).max(5).optional(),
   gender: Joi.string().valid('male', 'female').optional(),
+  dailyRequirement: Joi.number().integer().min(200).max(5000),
+  photo: Joi.string().uri().optional(),
 });

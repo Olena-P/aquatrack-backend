@@ -10,7 +10,6 @@ const usersSchema = new Schema(
       match: [/.+@.+\..+/, 'Please fill a valid email address'],
     },
     password: { type: String, required: true },
-    avatar: { type: String },
     weight: Number,
     activityLevel: Number,
     gender: { type: String, default: 'female' },

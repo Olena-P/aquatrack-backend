@@ -19,25 +19,12 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { env } from '../utils/env.js';
 
 export const registerUserController = async (req, res) => {
-  const userId = req.user._id;
-  const file = req.file;
-
-  let fileUrl;
-
-  if (file) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      fileUrl = await saveFileToCloudinary(file);
-    } else {
-      fileUrl = await saveFileToUploadDir(file);
-    }
-
-    const user = await registerUser({ ...req.body, photo: fileUrl, userId });
-    res.status(201).json({
-      status: 201,
-      message: 'Successfully registered a user!',
-      data: user,
-    });
-  }
+  const user = await registerUser(req.body);
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully registered a user!',
+    data: user,
+  });
 };
 
 export const loginUserController = async (req, res) => {

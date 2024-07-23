@@ -38,11 +38,6 @@ responses:
                       type: string
                       description: User's full name
                       example: John Doe
-                    avatar:
-                      type: string
-                      format: uri
-                      description: URL of the user's avatar photo
-                      example: https://www.example.com/avatar.jpg
                     weight:
                       type: number
                       format: float
@@ -60,6 +55,11 @@ responses:
                       type: number
                       description: User's daily rate of water
                       default: 2000
+                    photo:
+                      type: string
+                      format: uri
+                      description: URL of the user's photo photo
+                      example: https://www.example.com/avatar.jpg
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':
