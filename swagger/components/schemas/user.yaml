@@ -35,13 +35,17 @@ properties:
     description: "User's gender"
     type: string
     example: 'female'
+  dailyRequirement:
+    type: number
+    description: "User's daily rate of water"
+    default: 2000
   createdAt:
-    description: 'Document creation time'
+    description: "Document creation time"
     type: string
     format: date-time
     example: '2024-07-20T14:16:59.757Z'
   updatedAt:
-    description: 'Document update time'
+    description: "Document update time"
     type: string
     format: date-time
     example: '2024-07-20T14:16:59.757Z'

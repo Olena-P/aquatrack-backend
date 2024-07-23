@@ -56,6 +56,10 @@ responses:
                       type: string
                       description: User's gender
                       example: female
+                    dailyRequirement:
+                      type: number
+                      description: User's daily rate of water
+                      default: 2000
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':

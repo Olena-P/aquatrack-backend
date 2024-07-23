@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Get data on the consumed water for the day
-operationId: getWaterPerDay
+operationId: getWaterVolumePerDay
 description: 'Get data on the consumed water for the day'
 security:
   - bearerAuth: []

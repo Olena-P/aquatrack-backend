@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Get data on the consumed water for the month
-operationId: getWaterPerMonth
+operationId: getWaterVolumePerMonth
 description: 'Get data on the consumed water for the month'
 security:
   - bearerAuth: []
