@@ -32,7 +32,7 @@ responses:
               type: object
               properties:
                 user:
-                  $ref: ..\..\components\schemas\user.yaml
+                  $ref: ../../components/schemas/user.yaml
   '409':
     description: Email in use
 security:
