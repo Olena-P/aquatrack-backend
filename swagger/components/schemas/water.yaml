@@ -11,22 +11,22 @@ properties:
     type: number
     example: 60
   userId:
-    description: 'Id of the user who manages the water volume'
+    description: "Id of the user who manages the water volume"
     type: string
     example: 669b4b40e4582ae60fc0539f
   date:
-    description: 'Date of creation of data on the volume of water consumed'
+    description: "Date of creation of data on the volume of water consumed"
     type: string
     example: 20.07.2024
   time:
-    description: 'Time of creation of data on the volume of water consumed'
+    description: "Time of creation of data on the volume of water consumed"
     type: string
     example: 09:50
   createdAt:
-    description: 'Document creation time'
+    description: "Document creation time"
     type: string
     example: '2024-07-21T05:21:01.284Z'
   updatedAt:
-    description: 'Document update time'
+    description: "Document update time"
     type: string
     example: '2024-07-21T05:21:01.284Z'
