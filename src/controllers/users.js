@@ -1,3 +1,5 @@
+import createHttpError from 'http-errors';
+
 import {
   registerUser,
   loginUser,
@@ -12,17 +14,29 @@ import {
 } from '../services/users.js';
 import { ONE_DAY } from '../constants/index.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { env } from '../utils/env.js';
 
-export const registerUserController = async (req, res, next) => {
-  try {
-    const user = await registerUser(req.body);
+export const registerUserController = async (req, res) => {
+  const userId = req.user._id;
+  const file = req.file;
+
+  let fileUrl;
+
+  if (file) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      fileUrl = await saveFileToCloudinary(file);
+    } else {
+      fileUrl = await saveFileToUploadDir(file);
+    }
+
+    const user = await registerUser({ ...req.body, photo: fileUrl, userId });
     res.status(201).json({
       status: 201,
       message: 'Successfully registered a user!',
       data: user,
     });
-  } catch (error) {
-    next(error);
   }
 };
 
@@ -164,4 +178,35 @@ export const updateUserProfileController = async (req, res, next) => {
 export const getUsersTotalController = async (req, res, next) => {
   const count = await getTotalUsers();
   res.status(200).json({ count });
+};
+
+export const patchUserController = async (req, res, next) => {
+  const { userId } = req.params;
+  const photo = req.file;
+
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = await updateUserProfile(userId, {
+    ...req.body,
+    photo: photoUrl,
+  });
+
+  if (!result) {
+    next(createHttpError(404, 'User not found'));
+    return;
+  }
+
+  res.json({
+    status: 200,
+    message: `Successfully patched a user!`,
+    data: result.user,
+  });
 };

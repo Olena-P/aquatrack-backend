@@ -21,6 +21,9 @@ const usersSchema = new Schema(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
+  {
+    photo: { type: String },
+  },
   { timestamps: true, versionKey: false },
 );
 
