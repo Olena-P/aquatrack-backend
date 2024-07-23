@@ -33,10 +33,39 @@ responses:
           type: object
           required:
             - data
+            - progressDay
           properties:
             data:
               type: array
               items:
-                $ref: ..\..\..\components\schemas\water.yaml
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: '669b4b5ee4582ae60fc053a8'
+                  volume:
+                    type: integer
+                    example: 60
+                  userId:
+                    type: string
+                    example: '669b4b40e4582ae60fc0539f'
+                  date:
+                    type: string
+                    example: '20.07.2024'
+                  time:
+                    type: string
+                    example: '09:50'
+                  createdAt:
+                    type: string
+                    example: '2024-07-22T12:44:28.417Z'
+                  updatedAt:
+                    type: string
+                    example: '2024-07-22T12:44:28.417Z'
+                  dailyRequirement:
+                    type: integer
+                    example: 2000
+            progressDay:
+              type: integer
+              example: 30
   '401':
     $ref: '../../../components/responses/401.yaml'
