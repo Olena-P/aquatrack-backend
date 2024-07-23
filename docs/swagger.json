@@ -782,72 +782,57 @@
         "tags": [
           "Water"
         ],
-        "summary": "Get data on the consumed water for the month",
-        "operationId": "getWaterPerMonth",
-        "description": "Get data on the consumed water for the month",
+        "summary": "Creates water volume data",
+        "operationId": "createWater",
+        "description": "Create water volum data with payload",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "year",
-            "schema": {
-              "type": "integer"
-            },
-            "example": 2024
-          },
-          {
-            "in": "query",
-            "name": "month",
-            "schema": {
-              "type": "string",
-              "pattern": "^\\d{2}$",
-              "example": "07"
-            },
-            "description": ""
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "volume"
+                ],
+                "properties": {
+                  "volume": {
+                    "description": "Water's volume",
+                    "type": "number",
+                    "example": 80
+                  }
+                }
+              }
+            }
           }
-        ],
+        },
         "responses": {
-          "200": {
-            "description": "Successfully found data!",
+          "201": {
+            "description": "Creates water volume",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
+                    "status",
+                    "message",
                     "data"
                   ],
                   "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created!"
+                    },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "date": {
-                            "type": "string",
-                            "example": "22.07.2024"
-                          },
-                          "volume": {
-                            "type": "integer",
-                            "example": 600
-                          },
-                          "dailyRequirement": {
-                            "type": "integer",
-                            "example": 2000
-                          },
-                          "percentage": {
-                            "type": "string",
-                            "example": "30%"
-                          },
-                          "entriesQuantity": {
-                            "type": "integer",
-                            "example": 3
-                          }
-                        }
-                      }
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
                     }
                   }
                 }
