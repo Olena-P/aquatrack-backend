@@ -19,10 +19,6 @@ properties:
     description: "User's password"
     type: string
     example: '121232'
-  avatar:
-    description: "User's photo"
-    type: string
-    example: 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
   weight:
     description: "User's weight in kilograms"
     type: number
@@ -39,6 +35,10 @@ properties:
     type: number
     description: "User's daily rate of water"
     default: 2000
+  photo:
+    description: "User's photo"
+    type: string
+    example: 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
   createdAt:
     description: "Document creation time"
     type: string
