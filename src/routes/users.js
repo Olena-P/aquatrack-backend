@@ -23,11 +23,13 @@ import {
 } from '../controllers/users.js';
 import { getGoogleOAuthUrlController } from '../controllers/users.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { upload } from '../middlewares/multer.js';
 
 const usersRouter = Router();
 
 usersRouter.post(
   '/register',
+  upload.single('photo'),
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
@@ -56,6 +58,7 @@ usersRouter.get(
 usersRouter.patch(
   '/user-profile',
   authenticate,
+  upload.single('photo'),
   validateBody(updateUserProfileSchema),
   ctrlWrapper(updateUserProfileController),
 );
