@@ -41,5 +41,5 @@ responses:
                   type: string
                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   '401':
-    $ref: ..\..\components\responses\401.yaml
+    $ref: ../../components/responses/401.yaml
 security: []
