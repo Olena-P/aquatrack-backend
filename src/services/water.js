@@ -1,22 +1,43 @@
 import { UsersCollection } from '../db/models/user.js';
 import { WaterVolume } from '../db/models/water.js';
 
+// export const localDate = () => {
+//   const milliseconds = Date.now();
+//   const date = new Date(milliseconds);
+
+//   return date.toLocaleDateString();
+// };
+
 export const localDate = () => {
   const milliseconds = Date.now();
   const date = new Date(milliseconds);
 
-  return date.toLocaleDateString();
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
 };
+
+// export const localTime = () => {
+//   const milliseconds = Date.now();
+//   const time = new Date(milliseconds);
+
+//   const timeString = time.toLocaleTimeString();
+//   const parts = timeString.split(":");
+//   parts.pop();
+
+//   return parts.join(":");
+// };
 
 export const localTime = () => {
   const milliseconds = Date.now();
   const time = new Date(milliseconds);
 
-  const timeString = time.toLocaleTimeString();
-  const parts = timeString.split(":");
-  parts.pop();
+  const hours = String(time.getHours()).padStart(2, '0');
+  const minutes = String(time.getMinutes()).padStart(2, '0');
 
-  return parts.join(":");
+  return `${hours}:${minutes}`;
 };
 
 export const createWaterVolume = async (payload, userId) => {
