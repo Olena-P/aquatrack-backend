@@ -145,21 +145,49 @@ export const getUserProfileController = async (req, res, next) => {
   }
 };
 
-export const updateUserProfileController = async (req, res, next) => {
-  try {
-    const userId = req.user.id;
-    const updateData = req.body;
+// export const updateUserProfileController = async (req, res, next) => {
+//   try {
+//     const userId = req.user.id;
+//     const updateData = req.body;
 
-    const updatedUserProfile = await updateUserProfile(userId, updateData);
+//     const updatedUserProfile = await updateUserProfile(userId, updateData);
 
-    res.status(200).json({
-      status: 200,
-      message: 'User profile updated successfully',
-      data: updatedUserProfile,
-    });
-  } catch (error) {
-    next(error);
+//     res.status(200).json({
+//       status: 200,
+//       message: 'User profile updated successfully',
+//       data: updatedUserProfile,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+export const updateUserProfileController = async (req, res) => {
+  const userId = req.user._id;
+  const file = req.file;
+  // const updateData = req.body;
+
+  let fileUrl;
+
+  if (file) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      fileUrl = await saveFileToCloudinary(file);
+    } else {
+      fileUrl = await saveFileToUploadDir(file);
+    }
   }
+
+  const updatedUserProfile = await updateUserProfile({
+    ...req.body,
+    photo: fileUrl,
+    userId,
+    // updateData,
+  });
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully created a contact!',
+    data: updatedUserProfile,
+  });
 };
 
 export const getUsersTotalController = async (req, res, next) => {
