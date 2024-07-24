@@ -6,5 +6,7 @@
 .DS_Store
 .idea
 
+/google-oauth.json
+
 *.todo
 pullrequests-list.txt
