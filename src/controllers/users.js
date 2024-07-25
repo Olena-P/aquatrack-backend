@@ -162,32 +162,107 @@ export const getUserProfileController = async (req, res, next) => {
 //   }
 // };
 
-export const updateUserProfileController = async (req, res) => {
-  const userId = req.user._id;
-  const file = req.file;
-  // const updateData = req.body;
+// export const updateUserProfileController = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+//     const file = req.file;
+//     let fileUrl;
 
-  let fileUrl;
+//     if (file) {
+//       fileUrl =
+//         env('ENABLE_CLOUDINARY') === 'true'
+//           ? await saveFileToCloudinary(file)
+//           : await saveFileToUploadDir(file);
+//     }
 
-  if (file) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      fileUrl = await saveFileToCloudinary(file);
-    } else {
-      fileUrl = await saveFileToUploadDir(file);
+//     const updatedUserProfile = await updateUserProfile(
+//       {
+//         ...req.body,
+//         photo: fileUrl, // Додаємо URL фото в дані для оновлення
+//       },
+//       userId,
+//     );
+
+//     // Перевірка на те, чи є дані масивом, якщо це необхідно
+//     const responseData = Array.isArray(updatedUserProfile)
+//       ? updatedUserProfile
+//       : [updatedUserProfile];
+
+//     res.status(201).json({
+//       status: 201,
+//       message: 'Профіль користувача успішно оновлено!',
+//       data: responseData,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       status: 500,
+//       message: 'Не вдалося оновити профіль користувача.',
+//       error: error.message,
+//     });
+//   }
+// };
+
+// export const updateUserProfileController = async (req, res) => {
+//   const userId = req.user._id;
+//   const file = req.file;
+//   const updateData = req.body;
+
+//   let fileUrl;
+
+//   if (file) {
+//     if (env('ENABLE_CLOUDINARY') === 'true') {
+//       fileUrl = await saveFileToCloudinary(file);
+//     } else {
+//       fileUrl = await saveFileToUploadDir(file);
+//     }
+//   }
+
+//   const updatedUserProfile = await updateUserProfile({
+//     ...req.body,
+//     photo: fileUrl,
+//     userId,
+//     updateData,
+//   });
+
+//   res.status(201).json({
+//     status: 201,
+//     message: 'Successfully created a contact!',
+//     data: updatedUserProfile,
+//   });
+// };
+
+export const updateUserProfileController = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const updateData = req.body;
+    const photo = req.file;
+
+    let photoUrl;
+
+    if (photo) {
+      if (env('ENABLE_CLOUDINARY') === 'true') {
+        photoUrl = await saveFileToCloudinary(photo);
+      } else {
+        photoUrl = await saveFileToUploadDir(photo);
+      }
     }
-  }
 
-  const updatedUserProfile = await updateUserProfile({
-    ...req.body,
-    photo: fileUrl,
-    userId,
-    // updateData,
-  });
-  res.status(201).json({
-    status: 201,
-    message: 'Successfully created a contact!',
-    data: updatedUserProfile,
-  });
+    const result = await updateUserProfile(userId, {
+      ...updateData,
+      photo: photoUrl,
+    });
+
+    if (!result) {
+      return next(createHttpError(404, 'User not found'));
+    }
+    res.json({
+      status: 200,
+      message: 'Successfully patched a user!',
+      data: result.user,
+    });
+  } catch {
+    next(createHttpError(500, 'Internal Server Error'));
+  }
 };
 
 export const getUsersTotalController = async (req, res, next) => {
@@ -195,33 +270,33 @@ export const getUsersTotalController = async (req, res, next) => {
   res.status(200).json({ count });
 };
 
-export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params;
-  const photo = req.file;
+// export const patchUserController = async (req, res, next) => {
+//   const { userId } = req.params;
+//   const photo = req.file;
 
-  let photoUrl;
+//   let photoUrl;
 
-  if (photo) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      photoUrl = await saveFileToCloudinary(photo);
-    } else {
-      photoUrl = await saveFileToUploadDir(photo);
-    }
-  }
+//   if (photo) {
+//     if (env('ENABLE_CLOUDINARY') === 'true') {
+//       photoUrl = await saveFileToCloudinary(photo);
+//     } else {
+//       photoUrl = await saveFileToUploadDir(photo);
+//     }
+//   }
 
-  const result = await updateUserProfile(userId, {
-    ...req.body,
-    photo: photoUrl,
-  });
+//   const result = await updateUserProfile(userId, {
+//     ...req.body,
+//     photo: photoUrl,
+//   });
 
-  if (!result) {
-    next(createHttpError(404, 'User not found'));
-    return;
-  }
+//   if (!result) {
+//     next(createHttpError(404, 'User not found'));
+//     return;
+//   }
 
-  res.json({
-    status: 200,
-    message: `Successfully patched a user!`,
-    data: result.user,
-  });
-};
+//   res.json({
+//     status: 200,
+//     message: `Successfully patched a user!`,
+//     data: result.user,
+//   });
+// };

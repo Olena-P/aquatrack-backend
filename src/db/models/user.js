@@ -17,12 +17,13 @@ const usersSchema = new Schema(
       type: Number,
       default: 2000,
     },
+
+    photo: { type: String },
+
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  {
-    photo: { type: String },
-  },
+
   { timestamps: true, versionKey: false },
 );
 
