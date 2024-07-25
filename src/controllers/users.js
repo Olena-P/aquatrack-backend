@@ -34,7 +34,6 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  const user = await registerUser(req.body);
   const session = await loginUser(req.body);
 
   setupSession(res, session);
@@ -43,7 +42,6 @@ export const loginUserController = async (req, res) => {
     status: 200,
     message: 'Successfully logged in a user!',
     data: {
-      user,
       accessToken: session.accessToken,
     },
   });
