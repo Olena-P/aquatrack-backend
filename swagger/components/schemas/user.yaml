@@ -30,6 +30,7 @@ properties:
   gender:
     description: "User's gender"
     type: string
+    default: 'female'
     example: 'female'
   dailyRequirement:
     type: number
@@ -40,12 +41,12 @@ properties:
     type: string
     example: 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
   createdAt:
-    description: "Document creation time"
+    description: 'Document creation time'
     type: string
     format: date-time
     example: '2024-07-20T14:16:59.757Z'
   updatedAt:
-    description: "Document update time"
+    description: 'Document update time'
     type: string
     format: date-time
     example: '2024-07-20T14:16:59.757Z'

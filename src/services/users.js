@@ -32,7 +32,20 @@ export const registerUser = async (userData) => {
     password: hashedPassword,
   });
 
-  return user.toJSON();
+  await SessionsCollection.deleteMany({ userId: user._id });
+
+  const accessToken = randomBytes(30).toString('base64');
+  const refreshToken = randomBytes(30).toString('base64');
+
+  const session = await SessionsCollection.create({
+    userId: user._id,
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+  });
+
+  return { user: user.toJSON(), session };
 };
 
 export const loginUser = async (loginData) => {
@@ -53,13 +66,15 @@ export const loginUser = async (loginData) => {
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
 
-  return await SessionsCollection.create({
+  const session = await SessionsCollection.create({
     userId: user._id,
     accessToken,
     refreshToken,
     accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   });
+
+  return { user: user.toJSON(), session };
 };
 
 export const loginOrSignupWithGoogle = async (code) => {
