@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
     "title": "AquaTrack",
@@ -143,7 +143,7 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "token": {
+                        "accessToken": {
                           "type": "string",
                           "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                         }
@@ -159,415 +159,6 @@
           }
         },
         "security": []
-      }
-    },
-    "/users/google-oauth": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get Google OAuth URL",
-        "description": "Retrieve the URL for Google OAuth login",
-        "operationId": "getGoogleOAuthUrl",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved Google OAuth URL",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully retrieved Google OAuth URL"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "oauthUrl": {
-                          "type": "string",
-                          "description": "The URL to initiate Google OAuth login",
-                          "example": "https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fconfirm-google-auth"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          }
-        }
-      }
-    },
-    "/users/confirm-google-oauth": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Confirm Google OAuth",
-        "description": "Handle the callback from Google OAuth and log in the user",
-        "operationId": "confirmGoogleOAuth",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "code": {
-                    "type": "string",
-                    "description": "The authorization code returned by Google",
-                    "example": "4/P7q7W91a-oMsCeLvIaQm6bTrgtp7"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successfully logged in via Google OAuth",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully logged in via Google OAuth!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "description": "The JWT access token for the user",
-                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          }
-        }
-      }
-    },
-    "/users/logout": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "User logout",
-        "operationId": "logoutUser",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "sessionId": {
-                    "type": "string"
-                  },
-                  "refreshToken": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Successful logout"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/users/user-profile": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get current user's profile",
-        "description": "Retrieve the profile information of the currently logged-in user",
-        "operationId": "getCurrentUserProfile",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved user profile",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully retrieved user profile"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "description": "User's unique identifier",
-                              "example": "607f1f77bcf86cd799439011"
-                            },
-                            "email": {
-                              "type": "string",
-                              "format": "email",
-                              "description": "User's email address",
-                              "example": "user@example.com"
-                            },
-                            "name": {
-                              "type": "string",
-                              "description": "User's full name",
-                              "example": "John Doe"
-                            },
-                            "avatar": {
-                              "type": "string",
-                              "format": "uri",
-                              "description": "URL of the user's avatar photo",
-                              "example": "https://www.example.com/avatar.jpg"
-                            },
-                            "weight": {
-                              "type": "number",
-                              "format": "float",
-                              "description": "User's weight in kilograms",
-                              "example": 70.5
-                            },
-                            "activityLevel": {
-                              "type": "integer",
-                              "description": "User's activity level on a scale of 1 to 5",
-                              "example": 3
-                            },
-                            "gender": {
-                              "type": "string",
-                              "description": "User's gender",
-                              "example": "female"
-                            },
-                            "dailyRequirement": {
-                              "type": "number",
-                              "description": "User's daily rate of water",
-                              "default": 2000
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Update user profile",
-        "description": "Update the current user's profile information",
-        "operationId": "updateUserProfile",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The user's name",
-                    "example": "John Doe"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "The user's email address",
-                    "example": "john.doe@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "format": "password",
-                    "description": "The user's new password",
-                    "example": "newpassword123"
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URL of the user's new avatar photo",
-                    "example": "https://www.example.com/new-avatar.jpg"
-                  },
-                  "weight": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "Updated weight in kilograms",
-                    "example": 68
-                  },
-                  "activityLevel": {
-                    "type": "integer",
-                    "description": "Updated activity level on a scale of 1 to 5",
-                    "example": 4
-                  },
-                  "gender": {
-                    "type": "string",
-                    "description": "Updated gender",
-                    "example": "male"
-                  },
-                  "dailyRequirement": {
-                    "type": "number",
-                    "description": "User's daily rate of water",
-                    "default": 2000
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "User profile updated successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Profile updated successfully!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "description": "User ID",
-                              "example": "60d9f6f4f6f4f6f4f6f4f6f"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "John Doe"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "john.doe@example.com"
-                            },
-                            "avatar": {
-                              "type": "string",
-                              "format": "uri",
-                              "description": "URL of the user's updated avatar photo",
-                              "example": "https://www.example.com/new-avatar.jpg"
-                            },
-                            "weight": {
-                              "type": "number",
-                              "format": "float",
-                              "description": "Updated weight in kilograms",
-                              "example": 68
-                            },
-                            "activityLevel": {
-                              "type": "integer",
-                              "description": "Updated activity level on a scale of 1 to 5",
-                              "example": 4
-                            },
-                            "gender": {
-                              "type": "string",
-                              "description": "Updated gender",
-                              "example": "male"
-                            },
-                            "dailyRequirement": {
-                              "type": "number",
-                              "description": "User's daily rate of water",
-                              "default": 2000
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
       }
     },
     "/users/refresh-token": {
@@ -603,49 +194,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/users/total-users": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Get total number of users",
-        "description": "Retrieve the total number of users in the system",
-        "operationId": "getTotalUsers",
-        "responses": {
-          "200": {
-            "description": "Total number of users retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "totalUsers": {
-                      "type": "integer",
-                      "description": "The total number of users in the system",
-                      "example": 120
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
           }
         },
         "security": [
@@ -775,6 +323,458 @@
           }
         },
         "security": []
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User logout",
+        "operationId": "logoutUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sessionId": {
+                    "type": "string"
+                  },
+                  "refreshToken": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful logout"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/google-oauth": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Google OAuth URL",
+        "description": "Retrieve the URL for Google OAuth login",
+        "operationId": "getGoogleOAuthUrl",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved Google OAuth URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved Google OAuth URL"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "oauthUrl": {
+                          "type": "string",
+                          "description": "The URL to initiate Google OAuth login",
+                          "example": "https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fconfirm-google-auth"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          }
+        }
+      }
+    },
+    "/users/confirm-google-oauth": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Confirm Google OAuth",
+        "description": "Handle the callback from Google OAuth and log in the user",
+        "operationId": "confirmGoogleOAuth",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "The authorization code returned by Google",
+                    "example": "4/P7q7W91a-oMsCeLvIaQm6bTrgtp7"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in via Google OAuth",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in via Google OAuth!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "description": "The JWT access token for the user",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/users/user-profile": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user's profile",
+        "description": "Retrieve the profile information of the currently logged-in user",
+        "operationId": "getCurrentUserProfile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully retrieved user profile"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "User's unique identifier",
+                              "example": "607f1f77bcf86cd799439011"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email",
+                              "description": "User's email address",
+                              "example": "user@example.com"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "User's full name",
+                              "example": "John Doe"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "format": "float",
+                              "description": "User's weight in kilograms",
+                              "example": 70.5
+                            },
+                            "activityLevel": {
+                              "type": "integer",
+                              "description": "User's activity level on a scale of 1 to 5",
+                              "example": 3
+                            },
+                            "gender": {
+                              "type": "string",
+                              "description": "User's gender",
+                              "example": "female"
+                            },
+                            "dailyRequirement": {
+                              "type": "number",
+                              "description": "User's daily rate of water",
+                              "default": 2000
+                            },
+                            "photo": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL of the user's photo photo",
+                              "example": "https://www.example.com/avatar.jpg"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user profile",
+        "description": "Update the current user's profile information",
+        "operationId": "updateUserProfile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The user's name",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "The user's email address",
+                    "example": "john.doe@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "The user's new password",
+                    "example": "newpassword123"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Updated weight in kilograms",
+                    "example": 68
+                  },
+                  "activityLevel": {
+                    "type": "integer",
+                    "description": "Updated activity level on a scale of 1 to 5",
+                    "example": 4
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Updated gender",
+                    "example": "male"
+                  },
+                  "dailyRequirement": {
+                    "type": "number",
+                    "description": "User's daily rate of water",
+                    "default": 2000
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of the user's new photo photo",
+                    "example": "https://www.example.com/new-avatar.jpg"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Profile updated successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "User ID",
+                              "example": "60d9f6f4f6f4f6f4f6f4f6f"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "John Doe"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "john.doe@example.com"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "format": "float",
+                              "description": "Updated weight in kilograms",
+                              "example": 68
+                            },
+                            "activityLevel": {
+                              "type": "integer",
+                              "description": "Updated activity level on a scale of 1 to 5",
+                              "example": 4
+                            },
+                            "gender": {
+                              "type": "string",
+                              "description": "Updated gender",
+                              "example": "male"
+                            },
+                            "dailyRequirement": {
+                              "type": "number",
+                              "description": "User's daily rate of water",
+                              "default": 2000
+                            },
+                            "photo": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL of the user's updated photo photo",
+                              "example": "https://www.example.com/new-avatar.jpg"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/total-users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get total number of users",
+        "description": "Retrieve the total number of users in the system",
+        "operationId": "getTotalUsers",
+        "responses": {
+          "200": {
+            "description": "Total number of users retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalUsers": {
+                      "type": "integer",
+                      "description": "The total number of users in the system",
+                      "example": 120
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/water": {
@@ -1165,11 +1165,6 @@
             "type": "string",
             "example": "121232"
           },
-          "avatar": {
-            "description": "User's photo",
-            "type": "string",
-            "example": "https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg"
-          },
           "weight": {
             "description": "User's weight in kilograms",
             "type": "number",
@@ -1189,6 +1184,11 @@
             "type": "number",
             "description": "User's daily rate of water",
             "default": 2000
+          },
+          "photo": {
+            "description": "User's photo",
+            "type": "string",
+            "example": "https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg"
           },
           "createdAt": {
             "description": "Document creation time",

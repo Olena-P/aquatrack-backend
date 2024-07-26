@@ -37,7 +37,7 @@ responses:
             data:
               type: object
               properties:
-                token:
+                accessToken:
                   type: string
                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   '401':
