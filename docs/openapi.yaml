@@ -17,36 +17,36 @@ servers:
 paths:
   /users/register:
     post:
-      $ref: '../swagger/paths/users/register.yaml'
+      $ref: '../swagger/paths/auth/register.yaml'
   /users/login:
     post:
-      $ref: '../swagger/paths/users/login.yaml'
-  /users/google-oauth:
+      $ref: '../swagger/paths/auth/login.yaml'
+  /users/refresh-token:
     post:
-      $ref: '../swagger/paths/users/get-oauth-url.yaml'
-  /users/confirm-google-oauth:
+      $ref: '../swagger/paths/auth/refresh-token.yaml'
+  /users/request-reset-pwd:
     post:
-      $ref: '../swagger/paths/users/confirm-oauth.yaml'
+      $ref: '../swagger/paths/auth/request-reset-pwd.yaml'
+  /users/reset-pwd:
+    post:
+      $ref: '../swagger/paths/auth/reset-pwd.yaml'
   /users/logout:
     post:
-      $ref: '../swagger/paths/users/logout.yaml'
+      $ref: '../swagger/paths/auth/logout.yaml'
+  /users/google-oauth:
+    post:
+      $ref: '../swagger/paths/auth/get-oauth-url.yaml'
+  /users/confirm-google-oauth:
+    post:
+      $ref: '../swagger/paths/auth/confirm-oauth.yaml'
   /users/user-profile:
     get:
       $ref: '../swagger/paths/users/get-user-profile.yaml'
     patch:
       $ref: '../swagger/paths/users/patch-user-profile.yaml'
-  /users/refresh-token:
-    post:
-      $ref: '../swagger/paths/users/refresh-token.yaml'
   /users/total-users:
     get:
       $ref: '../swagger/paths/users/total-users.yaml'
-  /users/request-reset-pwd:
-    post:
-      $ref: '../swagger/paths/users/request-reset-pwd.yaml'
-  /users/reset-pwd:
-    post:
-      $ref: '../swagger/paths/users/reset-pwd.yaml'
   /water:
     post:
       $ref: '../swagger/paths/water/post.yaml'
