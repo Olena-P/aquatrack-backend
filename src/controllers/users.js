@@ -19,9 +19,8 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { env } from '../utils/env.js';
 
 export const registerUserController = async (req, res) => {
-  const user = await registerUser(req.body);
-  const session = await loginUser(req.body);
-
+  const { user, session } = await registerUser(req.body);
+  // const session = await loginUser(req.body);
   setupSession(res, session);
   res.status(201).json({
     status: 201,
@@ -29,12 +28,13 @@ export const registerUserController = async (req, res) => {
     data: {
       user,
       accessToken: session.accessToken,
+      refreshToken: session.refreshToken,
     },
   });
 };
 
 export const loginUserController = async (req, res) => {
-  const session = await loginUser(req.body);
+  const { user, session } = await loginUser(req.body);
 
   setupSession(res, session);
 
@@ -42,7 +42,9 @@ export const loginUserController = async (req, res) => {
     status: 200,
     message: 'Successfully logged in a user!',
     data: {
+      user,
       accessToken: session.accessToken,
+      refreshToken: session.refreshToken,
     },
   });
 };
