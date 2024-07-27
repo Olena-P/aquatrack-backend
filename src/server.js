@@ -50,7 +50,17 @@ export const setupServer = () => {
   );
   app.use(
     cors({
-      origin: ['http://localhost:5173/', 'https://50-85-front.vercel.app/'],
+      origin: (origin, callback) => {
+        const allowedOrigins = [
+          'http://localhost:5173/',
+          'https://50-85-front.vercel.app/',
+        ];
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       credentials: true,
     }),
   );
