@@ -17,7 +17,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 
 export const registerUser = async (userData) => {
-  const { email, password, name } = userData;
+  const { email, password } = userData;
 
   const existingUser = await UsersCollection.findOne({ email });
   if (existingUser) {
@@ -28,7 +28,6 @@ export const registerUser = async (userData) => {
 
   const user = await UsersCollection.create({
     email,
-    name,
     password: hashedPassword,
   });
 
