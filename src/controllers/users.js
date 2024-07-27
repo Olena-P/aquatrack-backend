@@ -140,14 +140,22 @@ export const loginWithGoogleController = async (req, res) => {
 
 export const getUserProfileController = async (req, res, next) => {
   try {
-    console.log('User in controller:', req.user);
     const userId = req.user.id;
     const userProfile = await getUserProfile(userId);
+
+    if (!userProfile) {
+      return next(createHttpError(404, 'User not found'));
+    }
+
+    const dailyWaterIntake = userProfile.calculateWaterIntake();
 
     res.status(200).json({
       status: 200,
       message: 'User profile retrieved successfully',
-      data: userProfile,
+      data: {
+        ...userProfile.toJSON(),
+        dailyWaterIntake,
+      },
     });
   } catch (error) {
     next(error);

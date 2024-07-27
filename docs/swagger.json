@@ -1178,6 +1178,7 @@
           "gender": {
             "description": "User's gender",
             "type": "string",
+            "default": "female",
             "example": "female"
           },
           "dailyRequirement": {

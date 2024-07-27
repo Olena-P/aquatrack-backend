@@ -21,13 +21,10 @@ const usersSchema = new Schema(
       type: Number,
       default: 2000,
     },
-
     photo: { type: String },
-
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-
   { timestamps: true, versionKey: false },
 );
 
@@ -35,6 +32,25 @@ usersSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   return obj;
+};
+
+usersSchema.methods.calculateWaterIntake = function () {
+  const { weight, activityLevel, gender } = this;
+  let V;
+
+  if (weight && activityLevel) {
+    if (gender === 'female') {
+      V = weight * 0.03 + activityLevel * 0.4;
+    } else if (gender === 'male') {
+      V = weight * 0.04 + activityLevel * 0.6;
+    } else {
+      V = 2000;
+    }
+  } else {
+    V = 2000;
+  }
+
+  return V;
 };
 
 export const UsersCollection = model('users', usersSchema);
