@@ -50,7 +50,7 @@ export const setupServer = () => {
   );
   app.use(
     cors({
-      origin: 'http://localhost:5173',
+      origin: ['http://localhost:5173/', 'https://50-85-front.vercel.app/'],
       credentials: true,
     }),
   );
