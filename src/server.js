@@ -52,8 +52,8 @@ export const setupServer = () => {
     cors({
       origin: (origin, callback) => {
         const allowedOrigins = [
-          'http://localhost:5173/',
-          'https://50-85-front.vercel.app/',
+          'http://localhost:5173',
+          'https://50-85-front.vercel.app',
         ];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
           callback(null, true);
@@ -64,6 +64,7 @@ export const setupServer = () => {
       credentials: true,
     }),
   );
+
   app.use(helmet());
 
   app.use(morgan('combined'));
