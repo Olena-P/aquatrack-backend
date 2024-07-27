@@ -12,7 +12,11 @@ const usersSchema = new Schema(
     password: { type: String, required: true },
     weight: Number,
     activityLevel: Number,
-    gender: { type: String, default: 'female' },
+    gender: {
+      type: String,
+      enum: ['male', 'female'],
+      default: 'female',
+    },
     dailyRequirement: {
       type: Number,
       default: 2000,
