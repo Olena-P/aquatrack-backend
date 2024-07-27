@@ -20,7 +20,6 @@ import { env } from '../utils/env.js';
 
 export const registerUserController = async (req, res) => {
   const { user, session } = await registerUser(req.body);
-  // const session = await loginUser(req.body);
   setupSession(res, session);
   res.status(201).json({
     status: 201,
@@ -28,7 +27,6 @@ export const registerUserController = async (req, res) => {
     data: {
       user,
       accessToken: session.accessToken,
-      refreshToken: session.refreshToken,
     },
   });
 };
@@ -44,7 +42,6 @@ export const loginUserController = async (req, res) => {
     data: {
       user,
       accessToken: session.accessToken,
-      refreshToken: session.refreshToken,
     },
   });
 };
@@ -66,10 +63,14 @@ export const logoutUserController = async (req, res, next) => {
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
     expires: new Date(Date.now() + ONE_DAY),
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
     expires: new Date(Date.now() + ONE_DAY),
   });
 };
