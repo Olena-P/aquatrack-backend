@@ -14,7 +14,7 @@ import {
 } from '../services/users.js';
 import { ONE_DAY } from '../constants/index.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import saveFileToCloudinary from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { env } from '../utils/env.js';
 
