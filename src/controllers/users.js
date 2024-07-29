@@ -189,7 +189,7 @@ export const updateUserProfileController = async (req, res, next) => {
     res.json({
       status: 200,
       message: 'Successfully patched a user!',
-      data: result.user,
+      data: result,
     });
   } catch {
     next(createHttpError(500, 'Internal Server Error'));
