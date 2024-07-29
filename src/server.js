@@ -54,6 +54,8 @@ export const setupServer = () => {
         const allowedOrigins = [
           'http://localhost:5173',
           'https://50-85-front.vercel.app',
+          'https://aquatrack-backend.onrender.com',
+          'http://localhost:3000',
         ];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
           callback(null, true);
