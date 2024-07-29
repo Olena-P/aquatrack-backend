@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Reset the user's password
 operationId: resetPassword
 description: Reset the user's password using a reset token

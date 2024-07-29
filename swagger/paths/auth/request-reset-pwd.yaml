@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Request password reset
 operationId: requestResetPassword
 description: Request a password reset link to be sent to the user's email
