@@ -7,12 +7,14 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: API Documentation for AquaTrack
 tags:
+  - name: Auth
+    description: Operations related to user authentication and authorization, including registration, login, and password management.
   - name: Users
-    description: Operations related to user management, including registration, login, and user profile updates.
+    description: Operations related to user management, including profile retrieval and updates.
   - name: Water
     description: Operations about water
 servers:
-  - url: https://aquatrack-backend.onrender.com/api-docs
+  - url: https://aquatrack-backend.onrender.com
   - url: http://localhost:3000
 paths:
   /users/register:

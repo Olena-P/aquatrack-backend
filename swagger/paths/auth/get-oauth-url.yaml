@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Get Google OAuth URL
 description: Retrieve the URL for Google OAuth login
 operationId: getGoogleOAuthUrl
