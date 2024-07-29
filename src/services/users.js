@@ -57,7 +57,7 @@ export const loginUser = async (loginData) => {
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    throw createHttpError(401, 'The password is incorrect!');
+    throw createHttpError(403, 'The password is incorrect!');
   }
 
   await SessionsCollection.deleteMany({ userId: user._id });
@@ -88,7 +88,6 @@ export const loginOrSignupWithGoogle = async (code) => {
       email: payload.email,
       name: getFullNameFromGoogleTokenPayload(payload),
       password,
-      //   role: 'parent',
     });
   }
 
