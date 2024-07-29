@@ -57,7 +57,7 @@ export const loginUser = async (loginData) => {
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    throw createHttpError(401, 'Unauthorized');
+    throw createHttpError(401, 'The password is incorrect!');
   }
 
   await SessionsCollection.deleteMany({ userId: user._id });
