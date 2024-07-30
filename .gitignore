@@ -8,3 +8,5 @@
 
 *.todo
 pullrequests-list.txt
+
+/temp
