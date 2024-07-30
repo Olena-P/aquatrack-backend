@@ -603,18 +603,6 @@
                     "description": "The user's name",
                     "example": "John Doe"
                   },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "The user's email address",
-                    "example": "john.doe@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "format": "password",
-                    "description": "The user's new password",
-                    "example": "newpassword123"
-                  },
                   "weight": {
                     "type": "number",
                     "format": "float",
