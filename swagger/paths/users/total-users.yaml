@@ -10,8 +10,12 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
-            totalUsers:
+            count:
               type: integer
               description: The total number of users in the system
               example: 120

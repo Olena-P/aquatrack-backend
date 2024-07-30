@@ -3,6 +3,8 @@ tags:
 summary: Refresh the authentication token
 operationId: refreshToken
 description: Obtain a new authentication token using a refresh token
+security:
+  - bearerAuth: []
 responses:
   '200':
     description: Token refreshed successfully
@@ -10,15 +12,22 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
               example: 200
             message:
               type: string
-            refreshToken:
-              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: yKJRYGuruk+EUYeXJyU/+SUMfICpe0NT/say3guZ
   '401':
     $ref: '../../components/responses/401.yaml'
-security:
-  - bearerAuth: []
