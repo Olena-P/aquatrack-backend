@@ -28,7 +28,9 @@ responses:
               example: 200
             message:
               type: string
-              example: Password reset link sent successfully!
+              example: Reset password email has been successfully sent!
+            data:
+              type: object
   '400':
     $ref: ../../components/responses/400.yaml
   '404':

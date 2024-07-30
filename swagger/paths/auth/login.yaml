@@ -3,6 +3,8 @@ tags:
 summary: Login to the application
 operationId: loginUser
 description: Login to the application with credentials
+security:
+  - bearerAuth: []
 requestBody:
   required: true
   content:
@@ -27,6 +29,10 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
@@ -37,9 +43,10 @@ responses:
             data:
               type: object
               properties:
+                user:
+                  $ref: '../../components/schemas/user.yaml'
                 accessToken:
                   type: string
-                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
   '403':
     $ref: ../../components/responses/403.yaml
-security: []

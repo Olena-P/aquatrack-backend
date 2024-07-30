@@ -27,12 +27,19 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             data:
               type: object
               properties:
                 user:
                   $ref: ../../components/schemas/user.yaml
+                accessToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   '409':
     description: Email in use
 security:

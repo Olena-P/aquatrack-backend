@@ -19,8 +19,8 @@ export const requestResetEmailSchema = Joi.object({
 });
 
 export const resetPasswordSchema = Joi.object({
-  password: Joi.string().required(),
-  token: Joi.string().required(),
+  newPassword: Joi.string().required(),
+  resetToken: Joi.string().required(),
 });
 
 export const updateUserProfileSchema = Joi.object({
@@ -28,8 +28,8 @@ export const updateUserProfileSchema = Joi.object({
   email: Joi.string().email().optional(),
   password: Joi.string().min(6).optional(),
   weight: Joi.number().optional(),
-  activityLevel: Joi.number().integer().min(1).max(5).optional(),
+  activityLevel: Joi.number().integer().optional(),
   gender: Joi.string().valid('male', 'female').optional(),
-  dailyRequirement: Joi.number().integer().min(200).max(5000),
+  dailyRequirement: Joi.number().integer(),
   photo: Joi.string().uri().allow(''),
 });

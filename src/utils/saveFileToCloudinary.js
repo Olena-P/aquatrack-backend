@@ -10,14 +10,6 @@ cloudinary.v2.config({
   api_secret: env(CLOUDINARY.API_SECRET),
 });
 
-// export const saveFileToCloudinary = async (file) => {
-//   const response = await cloudinary.v2.uploader.upload(file.path);
-//   //   await fs.unlink(file.path);
-//   return response.secure_url;
-// };
-
-// const cloudinary = require('cloudinary');
-
 const saveFileToCloudinary = async (file) => {
   const result = await cloudinary.v2.uploader.upload(file.path, {
     upload_preset: 'ml_default', // Замість 'your_upload_preset' використовуйте ім'я вашого пресета

@@ -71,12 +71,21 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "type": "object",
                       "properties": {
                         "user": {
                           "$ref": "#/components/schemas/user"
+                        },
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                         }
                       }
                     }
@@ -104,6 +113,11 @@
         "summary": "Login to the application",
         "operationId": "loginUser",
         "description": "Login to the application with credentials",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -135,6 +149,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -147,9 +166,12 @@
                     "data": {
                       "type": "object",
                       "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/user"
+                        },
                         "accessToken": {
                           "type": "string",
-                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
                         }
                       }
                     }
@@ -161,8 +183,7 @@
           "403": {
             "$ref": "#/components/responses/403"
           }
-        },
-        "security": []
+        }
       }
     },
     "/users/refresh-token": {
@@ -173,6 +194,11 @@
         "summary": "Refresh the authentication token",
         "operationId": "refreshToken",
         "description": "Obtain a new authentication token using a refresh token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Token refreshed successfully",
@@ -180,16 +206,28 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
                       "example": 200
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Successfully refreshed a session!"
                     },
-                    "refreshToken": {
-                      "type": "string"
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "yKJRYGuruk+EUYeXJyU/+SUMfICpe0NT/say3guZ"
+                        }
+                      }
                     }
                   }
                 }
@@ -199,12 +237,7 @@
           "401": {
             "$ref": "#/components/responses/401"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/users/request-reset-pwd": {
@@ -247,7 +280,10 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Password reset link sent successfully!"
+                      "example": "Reset password email has been successfully sent!"
+                    },
+                    "data": {
+                      "type": "object"
                     }
                   }
                 }
@@ -310,6 +346,9 @@
                     "message": {
                       "type": "string",
                       "example": "Password reset successfully!"
+                    },
+                    "data": {
+                      "type": "object"
                     }
                   }
                 }
@@ -336,24 +375,12 @@
         ],
         "summary": "User logout",
         "operationId": "logoutUser",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "sessionId": {
-                    "type": "string"
-                  },
-                  "refreshToken": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+        "description": "User logout",
+        "security": [
+          {
+            "bearerAuth": []
           }
-        },
+        ],
         "responses": {
           "204": {
             "description": "Successful logout"
@@ -361,12 +388,7 @@
           "401": {
             "$ref": "#/components/responses/401"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/users/google-oauth": {
@@ -591,46 +613,17 @@
         "summary": "Update user profile",
         "description": "Update the current user's profile information",
         "operationId": "updateUserProfile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "The user's name",
-                    "example": "John Doe"
-                  },
-                  "weight": {
-                    "type": "number",
-                    "format": "float",
-                    "description": "Updated weight in kilograms",
-                    "example": 68
-                  },
-                  "activityLevel": {
-                    "type": "integer",
-                    "description": "Updated activity level on a scale of 1 to 5",
-                    "example": 4
-                  },
-                  "gender": {
-                    "type": "string",
-                    "description": "Updated gender",
-                    "example": "male"
-                  },
-                  "dailyRequirement": {
-                    "type": "number",
-                    "description": "User's daily rate of water",
-                    "default": 2000
-                  },
-                  "photo": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URL of the user's new photo photo",
-                    "example": "https://www.example.com/new-avatar.jpg"
-                  }
-                }
+                "type": "object"
               }
             }
           }
@@ -639,9 +632,14 @@
           "200": {
             "description": "User profile updated successfully",
             "content": {
-              "application/json": {
+              "multipart/form-data": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -655,49 +653,7 @@
                       "type": "object",
                       "properties": {
                         "user": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "description": "User ID",
-                              "example": "60d9f6f4f6f4f6f4f6f4f6f"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "John Doe"
-                            },
-                            "email": {
-                              "type": "string",
-                              "example": "john.doe@example.com"
-                            },
-                            "weight": {
-                              "type": "number",
-                              "format": "float",
-                              "description": "Updated weight in kilograms",
-                              "example": 68
-                            },
-                            "activityLevel": {
-                              "type": "integer",
-                              "description": "Updated activity level on a scale of 1 to 5",
-                              "example": 4
-                            },
-                            "gender": {
-                              "type": "string",
-                              "description": "Updated gender",
-                              "example": "male"
-                            },
-                            "dailyRequirement": {
-                              "type": "number",
-                              "description": "User's daily rate of water",
-                              "default": 2000
-                            },
-                            "photo": {
-                              "type": "string",
-                              "format": "uri",
-                              "description": "URL of the user's updated photo photo",
-                              "example": "https://www.example.com/new-avatar.jpg"
-                            }
-                          }
+                          "$ref": "#/components/schemas/user"
                         }
                       }
                     }
@@ -718,12 +674,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/users/total-users": {
@@ -741,8 +692,13 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
-                    "totalUsers": {
+                    "count": {
                       "type": "integer",
                       "description": "The total number of users in the system",
                       "example": 120
