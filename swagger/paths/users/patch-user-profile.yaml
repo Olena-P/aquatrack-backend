@@ -4,7 +4,7 @@ summary: Update user profile
 description: Update the current user's profile information
 operationId: updateUserProfile
 requestBody:
-  required: true
+  required: false
   content:
     multipart/form-data:
       schema:

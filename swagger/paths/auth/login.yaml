@@ -27,6 +27,10 @@ responses:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
@@ -36,10 +40,11 @@ responses:
               example: Login successful!
             data:
               type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+              $ref: '../../components/schemas/user.yaml'
+              # properties:
+                # accessToken:
+                #   type: string
+                #   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   '403':
     $ref: ../../components/responses/403.yaml
 security: []
