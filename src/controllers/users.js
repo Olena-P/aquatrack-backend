@@ -125,17 +125,23 @@ export const getGoogleOAuthUrlController = async (req, res) => {
   });
 };
 
-export const loginWithGoogleController = async (req, res) => {
-  const session = await loginOrSignupWithGoogle(req.body.code);
-  setupSession(res, session);
+export const loginWithGoogleController = async (req, res, next) => {
+  try {
+    const session = await loginOrSignupWithGoogle(req.body.code);
+    setupSession(res, session);
 
-  res.json({
-    status: 200,
-    message: 'Successfully logged in via Google OAuth!',
-    data: {
-      accessToken: session.accessToken,
-    },
-  });
+    res.json({
+      status: 200,
+      message: 'Successfully logged in via Google OAuth!',
+      data: {
+        accessToken: session.accessToken,
+      },
+    });
+
+    res.redirect('/tracker');
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const getUserProfileController = async (req, res, next) => {
