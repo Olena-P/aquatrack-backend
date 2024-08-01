@@ -43,7 +43,7 @@ usersRouter.post(
 usersRouter.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
 
 usersRouter.post(
-  '/confirm-oauth',
+  '/confirm-google-auth',
   validateBody(loginWithGoogleOAuthSchema),
   ctrlWrapper(loginWithGoogleController),
 );
