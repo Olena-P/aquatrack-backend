@@ -50,7 +50,7 @@ usersSchema.methods.calculateWaterIntake = function () {
     V = 2000;
   }
 
-  return V * 1000;
+  return V;
 };
 
 export const UsersCollection = model('users', usersSchema);
