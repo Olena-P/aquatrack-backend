@@ -391,7 +391,7 @@
         }
       }
     },
-    "/users/google-oauth": {
+    "/users/get-oauth-url": {
       "post": {
         "tags": [
           "Auth"
@@ -441,7 +441,7 @@
         }
       }
     },
-    "/users/confirm-google-oauth": {
+    "/users/confirm-get-oauth-url": {
       "post": {
         "tags": [
           "Auth"

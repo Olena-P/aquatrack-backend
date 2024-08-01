@@ -35,10 +35,10 @@ paths:
   /users/logout:
     post:
       $ref: '../swagger/paths/auth/logout.yaml'
-  /users/google-oauth:
+  /users/get-oauth-url:
     post:
       $ref: '../swagger/paths/auth/get-oauth-url.yaml'
-  /users/confirm-google-oauth:
+  /users/confirm-get-oauth-url:
     post:
       $ref: '../swagger/paths/auth/confirm-google-auth.yaml'
   /users/user-profile:
